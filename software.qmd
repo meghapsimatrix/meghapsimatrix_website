@@ -3,9 +3,7 @@ title: "Software"
 listing:
   contents: software
   feed: true
-  type: grid
-  grid-item-border: true
-  grid-item-align: left
+  type: default
   date-format: medium
   sort: "date desc"
   categories: true

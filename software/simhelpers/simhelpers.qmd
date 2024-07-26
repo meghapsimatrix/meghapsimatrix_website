@@ -1,7 +1,6 @@
 ---
 title: "simhelpers"
 date: 2024-07-25
-categories: [R Package]
 image: workflow.png
 ---
 
