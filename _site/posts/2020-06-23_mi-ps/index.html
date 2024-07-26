@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.340">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Megha Joshi">
+<meta name="dcterms.date" content="2020-06-23">
+
+<title>Megha - Propensity Score Analysis with Multiply Imputed Data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Megha - Propensity Score Analysis with Multiply Imputed Data">
+<meta property="og:description" content="">
+<meta property="og:image" content="index_files/figure-html/unnamed-chunk-3-1.png">
+<meta property="og:site-name" content="Megha">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Megha</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts.html" rel="" target="">
+ <span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../software.html" rel="" target="">
+ <span class="menu-text">Software</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/meghapsimatrix" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Propensity Score Analysis with Multiply Imputed Data</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">propensity score</div>
+                <div class="quarto-category">missing data</div>
+                <div class="quarto-category">causal inference</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Megha Joshi </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 23, 2020</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#multiple-imputation-across-mi-across" id="toc-multiple-imputation-across-mi-across" class="nav-link active" data-scroll-target="#multiple-imputation-across-mi-across">Multiple Imputation Across (MI Across)</a></li>
+  <li><a href="#multiple-imputation-within-mi-within" id="toc-multiple-imputation-within-mi-within" class="nav-link" data-scroll-target="#multiple-imputation-within-mi-within">Multiple Imputation Within (MI Within)</a></li>
+  <li><a href="#read-in-the-data" id="toc-read-in-the-data" class="nav-link" data-scroll-target="#read-in-the-data">Read in the data</a></li>
+  <li><a href="#multiple-imputation-using-mice" id="toc-multiple-imputation-using-mice" class="nav-link" data-scroll-target="#multiple-imputation-using-mice">Multiple imputation using <code>mice</code></a>
+  <ul class="collapse">
+  <li><a href="#imputed-data" id="toc-imputed-data" class="nav-link" data-scroll-target="#imputed-data">Imputed data</a></li>
+  </ul></li>
+  <li><a href="#estimating-propensity-scores" id="toc-estimating-propensity-scores" class="nav-link" data-scroll-target="#estimating-propensity-scores">Estimating propensity scores</a></li>
+  <li><a href="#estimating-att-ipw-weights" id="toc-estimating-att-ipw-weights" class="nav-link" data-scroll-target="#estimating-att-ipw-weights">Estimating ATT IPW weights</a></li>
+  <li><a href="#checking-common-support" id="toc-checking-common-support" class="nav-link" data-scroll-target="#checking-common-support">Checking common support</a>
+  <ul class="collapse">
+  <li><a href="#across" id="toc-across" class="nav-link" data-scroll-target="#across">Across</a></li>
+  <li><a href="#within" id="toc-within" class="nav-link" data-scroll-target="#within">Within</a></li>
+  </ul></li>
+  <li><a href="#checking-balance" id="toc-checking-balance" class="nav-link" data-scroll-target="#checking-balance">Checking balance</a></li>
+  <li><a href="#estimating-att" id="toc-estimating-att" class="nav-link" data-scroll-target="#estimating-att">Estimating ATT</a></li>
+  <li><a href="#pooling-the-results" id="toc-pooling-the-results" class="nav-link" data-scroll-target="#pooling-the-results">Pooling the results</a>
+  <ul class="collapse">
+  <li><a href="#across-1" id="toc-across-1" class="nav-link" data-scroll-target="#across-1">Across</a></li>
+  <li><a href="#within-1" id="toc-within-1" class="nav-link" data-scroll-target="#within-1">Within</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a>
+  <ul class="collapse">
+  <li><a href="#across-2" id="toc-across-2" class="nav-link" data-scroll-target="#across-2">Across</a></li>
+  <li><a href="#within-2" id="toc-within-2" class="nav-link" data-scroll-target="#within-2">Within</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#comparing-the-methods" id="toc-comparing-the-methods" class="nav-link" data-scroll-target="#comparing-the-methods">Comparing the methods</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>In this post, I walk through steps of running propensity score analysis when there is missingness in the covariate data. Particularly, I look at multiple imputation and ways to condition on propensity scores estimated with imputed data. The code builds on my earlier <a href="https://meghapsimatrix.com/post/missing_dat/">post</a> where I go over different ways to handle missing data when conducting propensity score analysis. I go through <code>tidyeval</code> way of dealing with multiply imputed data. Please see <code>MatchThem</code> package for functions that work with multiply imputed data and propensity scores <span class="citation" data-cites="matchthem_2020">(<a href="#ref-matchthem_2020" role="doc-biblioref">Pishgar &amp; Greifer, 2020</a>)</span>.</p>
+<p><span class="citation" data-cites="hill_2004">Hill (<a href="#ref-hill_2004" role="doc-biblioref">2004</a>)</span> and <span class="citation" data-cites="mitra_comparison_2016">Mitra &amp; Reiter (<a href="#ref-mitra_comparison_2016" role="doc-biblioref">2016</a>)</span> examined two distinct ways to condition on the propensity scores estimated on multiply imputed data:</p>
+<section id="multiple-imputation-across-mi-across" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-imputation-across-mi-across">Multiple Imputation Across (MI Across)</h2>
+<p>This approach involves creating <em>m</em> imputed datasets and then estimating propensity scores within each of the datasets and then averaging each unit’s <em>m</em> propensity scores across the <em>m</em> datasets <span class="citation" data-cites="hill_2004">(<a href="#ref-hill_2004" role="doc-biblioref">Hill, 2004</a>)</span>. Stratification, matching or IPW can be implemented using these averaged propensity scores <span class="citation" data-cites="hill_2004">(<a href="#ref-hill_2004" role="doc-biblioref">Hill, 2004</a>)</span>. Outcome models that include covariates will need to use the weights or strata derived from the averaged propensity scores and the <em>m</em> sets of covariate values. The weighted regression estimates will then need to be pooled.</p>
+</section>
+<section id="multiple-imputation-within-mi-within" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-imputation-within-mi-within">Multiple Imputation Within (MI Within)</h2>
+<p>This approach involves creating <em>m</em> imputed datasets and then estimating propensity scores within each of the datasets <span class="citation" data-cites="hill_2004">(<a href="#ref-hill_2004" role="doc-biblioref">Hill, 2004</a>)</span>. Instead of averaging the propensity scores across the datasets, this method entails conditioning on the propensity scores within the datasets and running the outcome analyses within each dataset <span class="citation" data-cites="hill_2004">(<a href="#ref-hill_2004" role="doc-biblioref">Hill, 2004</a>)</span>. The separate regression estimates have to be pooled.</p>
+</section>
+<section id="read-in-the-data" class="level1">
+<h1>Read in the data</h1>
+<p>Below, I show how to implement the Across and Within methods to estimate the average treatment effect on the treated (ATT). The data that I use here is from High School and Beyond (HSB) longitudinal study used by <span class="citation" data-cites="rosenbaum1986dropping">Rosenbaum (<a href="#ref-rosenbaum1986dropping" role="doc-biblioref">1986</a>)</span> to analyze the effect of dropping out of high school on later math achievement for students who dropped out. For the purpose of this example, I am going to assume a simple random sample.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mice)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(estimatr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(naniar)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>hsls_dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/meghapsimatrix/datasets/master/causal/HSLS09_incomplete.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.character, as.factor) <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(repeated_grade, IEP), as.factor) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>working_T3) <span class="co"># an outcome we don't care about</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Below, using <code>gg_miss_var</code> from the <code>naniar</code> package, I visualize the percent of data that are missing for each of the variables <span class="citation" data-cites="naniar_2020">(<a href="#ref-naniar_2020" role="doc-biblioref">Tierney, Cook, McBain, &amp; Fay, 2020</a>)</span>. The treatment variable, <code>drop_status</code> has no missing data. The outcome variable, <code>math_score_T2</code>, however, does have around 10% missing data. I am going to impute the outcome data and the covariate data in this example. Please see <span class="citation" data-cites="hill_2004">Hill (<a href="#ref-hill_2004" role="doc-biblioref">2004</a>)</span> for a discussion on dealing with missing outcome data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gg_miss_var</span>(hsls_dat, <span class="at">show_pct =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="multiple-imputation-using-mice" class="level1">
+<h1>Multiple imputation using <code>mice</code></h1>
+<p>Here, I impute the data using the <code>mice</code> package and set the number of imputations and iterations to 10 each <span class="citation" data-cites="vanB_2011">(<a href="#ref-vanB_2011" role="doc-biblioref">van Buuren &amp; Groothuis-Oudshoorn, 2011</a>)</span>. Then, I save the result as an <code>RData</code> file that I can load later. For the imputation method, I let mice run the default methods: predicitive mean matching for continuous variables, Bayesian logistic regression for binary variables and Bayesian polytomous regression for multinomial variables. For more information on different methods for imputation, please see <a href="https://stefvanbuuren.name/fimd/sec-modelform.html">Chapter 6.2</a> from <a href="https://stefvanbuuren.name/fimd/">Flexible Modeling of Missing Data</a> <span class="citation" data-cites="van2018flexible">(<a href="#ref-van2018flexible" role="doc-biblioref">van Buuren, 2018</a>)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(temp_data <span class="ot">&lt;-</span> <span class="fu">mice</span>(hsls_dat, <span class="at">m =</span> <span class="dv">10</span>, <span class="at">maxit =</span> <span class="dv">10</span>, <span class="at">seed =</span> <span class="dv">20200516</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(temp_data, <span class="at">file =</span> <span class="st">"temp_data.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="imputed-data" class="level2">
+<h2 class="anchored" data-anchor-id="imputed-data">Imputed data</h2>
+<p>I load the saved <code>RData</code> file and then extract the data that contains each of the 10 imputed data stacked.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"temp_data.RData"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>imp_dat <span class="ot">&lt;-</span> <span class="fu">complete</span>(temp_data, <span class="at">action =</span> <span class="st">"long"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="estimating-propensity-scores" class="level1">
+<h1>Estimating propensity scores</h1>
+<p>Below I create a dataset with only the covariates and use the <code>paste()</code> function to create a propensity score model equation. For the sake of this example, I only focus on including main effects of the covariates in the propensity score model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>covs <span class="ot">&lt;-</span> imp_dat <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sex<span class="sc">:</span>climate, math_score_T1)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>equation_ps <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"drop_status ~ "</span>, <span class="fu">paste</span>(<span class="fu">names</span>(covs), <span class="at">collapse =</span> <span class="st">" + "</span>))</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>equation_ps</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "drop_status ~  sex + race + language + repeated_grade + IEP + locale + region + SES + math_identity + math_utility + math_efficacy + math_interest + engagement + belonging + expectations + climate + math_score_T1"</code></pre>
+</div>
+</div>
+<p>Here, I create a function <code>estimate_ps()</code> that takes in an equation and a dataset and runs logistic regression using <code>glm()</code>. The function then adds the logit of propensity scores and the propensity scores as columns in the data.</p>
+<p>I then group the <code>imp_dat</code> by the imputation number and then run the <code>estimate_ps()</code> function on each of the imputed dataset using the <code>do()</code> function from <code>dplyr</code> <span class="citation" data-cites="tidy_2020">(<a href="#ref-tidy_2020" role="doc-biblioref">Wickham et al., 2019</a>)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>estimate_ps <span class="ot">&lt;-</span> <span class="cf">function</span>(equation, dat){</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  ps_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">as.formula</span>(equation), <span class="at">family =</span> binomial, <span class="at">data =</span> dat)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  dat <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">ps_logit =</span> <span class="fu">predict</span>(ps_model, <span class="at">type =</span> <span class="st">"link"</span>),</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">ps =</span> <span class="fu">predict</span>(ps_model, <span class="at">type =</span> <span class="st">"response"</span>))</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(dat)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>imp_dat_ps <span class="ot">&lt;-</span> imp_dat <span class="sc">%&gt;%</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(.imp) <span class="sc">%&gt;%</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do</span>(<span class="fu">estimate_ps</span>(equation_ps, .)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="estimating-att-ipw-weights" class="level1">
+<h1>Estimating ATT IPW weights</h1>
+<p>Below I estimate ATT weights using the across and within methods. For the Across method, I use the average of the propensity scores across the imputed datasets to calculate weights. For the within method, I use the the propensity scores estimated within each imputed dataset to calculate weights.</p>
+<p>The code below groups the imputed data by <code>.id</code> which is an identifier denoting each case. For each case, I summarize the mean of the propensity scores across the 10 imputed dataset and add that mean propensity score as a variable <code>ps_across</code> in the data. Then, I estimate the ATT weights using the averaged propensity scores for the Across method and the original propensity scores for the Within method.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>imp_dat_ps <span class="ot">&lt;-</span> imp_dat_ps <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(.id) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ps_across =</span> <span class="fu">mean</span>(ps)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">att_wt_across =</span> drop_status <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> drop_status) <span class="sc">*</span> ps_across<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">-</span> ps_across),</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">att_wt_within =</span> drop_status <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> drop_status) <span class="sc">*</span> ps<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">-</span> ps))</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>imp_dat_ps <span class="sc">%&gt;%</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(.imp, ps, ps_across, att_wt_across, att_wt_within)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 214,020 × 5
+    .imp       ps ps_across att_wt_across att_wt_within
+   &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+ 1     1 0.00339   0.00330       0.00331       0.00340 
+ 2     1 0.00989   0.0102        0.0103        0.00999 
+ 3     1 0.00135   0.00131       0.00132       0.00135 
+ 4     1 0.0119    0.0114        0.0115        0.0120  
+ 5     1 0.00222   0.00246       0.00246       0.00222 
+ 6     1 0.00289   0.00294       0.00295       0.00290 
+ 7     1 0.0113    0.0101        0.0102        0.0114  
+ 8     1 0.00347   0.00375       0.00377       0.00348 
+ 9     1 0.00327   0.00276       0.00276       0.00328 
+10     1 0.000667  0.000633      0.000633      0.000667
+# ℹ 214,010 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="checking-common-support" class="level1">
+<h1>Checking common support</h1>
+<section id="across" class="level2">
+<h2 class="anchored" data-anchor-id="across">Across</h2>
+<p>The propensity scores are averaged across the imputations when using the Across method. Thus, I create a density plot showing the distribution of the logit of the propensity scores from one of the imputations (all of the imputations will have the same distribution). The distribution of the propensity scores for drop-outs overlaps with that for the stayers satisfying the common support assumption.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>imp_dat_ps <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">drop =</span> <span class="fu">if_else</span>(drop_status <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Drop-outs"</span>, <span class="st">"Stayers"</span>),</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">ps_across_logit =</span> <span class="fu">log</span>(ps_across<span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> ps_across))) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(.imp <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> ps_across_logit, <span class="at">fill =</span> drop)) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span> </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Logit Propensity Scores"</span>, <span class="at">y =</span> <span class="st">"Density"</span>, <span class="at">fill =</span> <span class="st">""</span>) <span class="sc">+</span> </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Common Support: Across Method"</span>) <span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+</section>
+<section id="within" class="level2">
+<h2 class="anchored" data-anchor-id="within">Within</h2>
+<p>The propensity scores estimated for each imputation are used when using the Within method. Below, I create density plots showing distributions of the logit of the propensity scores faceted by the imputation. The common support assumption seems to be satisfied across all the imputations.</p>
+<p>In other datasets, the common support assumption may be violated. In such a case, certain cases might need to be trimmed from the analysis so there is enough overlap of the distributions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>imp_dat_ps <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">drop =</span> <span class="fu">if_else</span>(drop_status <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Drop-outs"</span>, <span class="st">"Stayers"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> ps_logit, <span class="at">fill =</span> drop)) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> .<span class="dv">5</span>) <span class="sc">+</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Logit Propensity Scores"</span>, <span class="at">y =</span> <span class="st">"Density"</span>, <span class="at">fill =</span> <span class="st">""</span>) <span class="sc">+</span> </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Common Support: Within Method"</span>) <span class="sc">+</span> </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> .imp, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="checking-balance" class="level1">
+<h1>Checking balance</h1>
+<p>At this point, we would check balance. Please see the <code>cobalt</code> package for functions on checking balance on multiply imputed data. I am going to skip this step for now.</p>
+</section>
+<section id="estimating-att" class="level1">
+<h1>Estimating ATT</h1>
+<p>Below I create a function to estimate the ATT. The function takes in an equation, a dataset, and weights as arguments. Then, it runs a model using <code>lm_robust()</code> from the <code>estimatr</code> package <span class="citation" data-cites="estimatr_2020">(<a href="#ref-estimatr_2020" role="doc-biblioref">Blair, Cooper, Coppock, Humphreys, &amp; Sonnet, 2020</a>)</span>. The standard errors of the regression coefficients are estimated using <code>HC2</code> type sandwich errors. It then cleans up the results using <code>tidy()</code> from <code>broom</code> <span class="citation" data-cites="broom_2020">(<a href="#ref-broom_2020" role="doc-biblioref">Robinson &amp; Hayes, 2020</a>)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>estimate_ATT <span class="ot">&lt;-</span> <span class="cf">function</span>(equation, dat, wts){</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  wts <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> <span class="fu">pull</span>({{wts}})</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">lm_robust</span>(<span class="fu">as.formula</span>(equation), <span class="at">data =</span> dat, <span class="at">weights =</span> wts)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> model <span class="sc">%&gt;%</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"drop_status"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(term, estimate, <span class="at">se =</span> std.error, <span class="at">ci_low =</span> conf.low, <span class="at">ci_high =</span> conf.high, <span class="at">df =</span> df)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(res)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>I set up an equation regressing the outcome variable, <code>math_score_T2</code> on drop status and on the main effects of all the covariates. Then, I run the <code>estimate_ATT()</code> function on each imputed data using <code>group_by()</code> and <code>do()</code>. Note that the weights are different for the Across and Within methods.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>equation_ancova <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"math_score_T2 ~ drop_status + "</span>, <span class="fu">paste</span>(<span class="fu">names</span>(covs), <span class="at">collapse =</span> <span class="st">" + "</span>))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>equation_ancova</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "math_score_T2 ~ drop_status +  sex + race + language + repeated_grade + IEP + locale + region + SES + math_identity + math_utility + math_efficacy + math_interest + engagement + belonging + expectations + climate + math_score_T1"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>across_res <span class="ot">&lt;-</span> imp_dat_ps <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(.imp) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do</span>(<span class="fu">estimate_ATT</span>(<span class="at">equation =</span> equation_ancova, <span class="at">dat =</span> ., <span class="at">wts =</span> att_wt_across)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>within_res <span class="ot">&lt;-</span> imp_dat_ps <span class="sc">%&gt;%</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(.imp) <span class="sc">%&gt;%</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do</span>(<span class="fu">estimate_ATT</span>(<span class="at">equation =</span> equation_ancova, <span class="at">dat =</span> ., <span class="at">wts =</span> att_wt_within)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="pooling-the-results" class="level1">
+<h1>Pooling the results</h1>
+<p>Here, I create a function called <code>calc_pooled()</code> using formula by <span class="citation" data-cites="barnard_small-sample_nodate">Barnard &amp; Rubin (<a href="#ref-barnard_small-sample_nodate" role="doc-biblioref">1999</a>)</span> to pool the results across the imputations. The <code>mice</code> package has the <code>pool()</code> function to do the same thing but we would need to convert the imputed data back to <code>mids</code> object type and I just wanted to skip all that :D</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>calc_pooled <span class="ot">&lt;-</span> <span class="cf">function</span>(dat, est, se, df){</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  dat <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">est =</span> dat <span class="sc">%&gt;%</span> <span class="fu">pull</span>({{est}}),</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">se =</span> dat <span class="sc">%&gt;%</span><span class="fu">pull</span>({{se}}),</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">df =</span> dat <span class="sc">%&gt;%</span> <span class="fu">pull</span>({{df}}))</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  pooled <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">m =</span> <span class="fu">n</span>(),</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">B =</span> <span class="fu">var</span>(est),  <span class="co"># between imputation var</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">beta_bar =</span> <span class="fu">mean</span>(est), <span class="co"># mean of estimated reg coeffs</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">V_bar =</span> <span class="fu">mean</span>(se<span class="sc">^</span><span class="dv">2</span>), <span class="co"># mean of var - hc corrected   within imp var</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">eta_bar =</span> <span class="fu">mean</span>(df)) <span class="sc">%&gt;%</span>   <span class="co"># mean of df</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">V_total =</span> V_bar <span class="sc">+</span> B <span class="sc">*</span> (m <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> m,  <span class="co">#between and within var est</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">gamma =</span> ((m <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> m) <span class="sc">*</span> B <span class="sc">/</span> V_total,  </span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">df_m =</span> (m <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> gamma<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">df_obs =</span> eta_bar <span class="sc">*</span> (eta_bar <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> gamma) <span class="sc">/</span> (eta_bar <span class="sc">+</span> <span class="dv">3</span>),</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">df =</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">/</span> df_m <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> df_obs),</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>      <span class="co"># output</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">se =</span> <span class="fu">sqrt</span>(V_total),</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>      <span class="at">ci_lower =</span> beta_bar <span class="sc">-</span> se <span class="sc">*</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> df),</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>      <span class="at">ci_upper =</span> beta_bar <span class="sc">+</span> se <span class="sc">*</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> df)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="at">est =</span> beta_bar, se, df, ci_lower, ci_upper) </span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(pooled)</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Below I use the <code>calc_pooled()</code> function to pool the results for each of the methods.</p>
+<section id="across-1" class="level2">
+<h2 class="anchored" data-anchor-id="across-1">Across</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>across_pooled <span class="ot">&lt;-</span> <span class="fu">calc_pooled</span>(<span class="at">dat =</span> across_res, <span class="at">est =</span> estimate, <span class="at">se =</span> se, <span class="at">df =</span> df)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>across_pooled <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">est</th>
+<th style="text-align: right;">se</th>
+<th style="text-align: right;">df</th>
+<th style="text-align: right;">ci_lower</th>
+<th style="text-align: right;">ci_upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">-0.335</td>
+<td style="text-align: right;">0.038</td>
+<td style="text-align: right;">93.772</td>
+<td style="text-align: right;">-0.411</td>
+<td style="text-align: right;">-0.26</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="within-1" class="level2">
+<h2 class="anchored" data-anchor-id="within-1">Within</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>within_pooled <span class="ot">&lt;-</span> <span class="fu">calc_pooled</span>(<span class="at">dat =</span> within_res, <span class="at">est =</span> estimate, <span class="at">se =</span> se, <span class="at">df =</span> df)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>within_pooled <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">est</th>
+<th style="text-align: right;">se</th>
+<th style="text-align: right;">df</th>
+<th style="text-align: right;">ci_lower</th>
+<th style="text-align: right;">ci_upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">-0.356</td>
+<td style="text-align: right;">0.041</td>
+<td style="text-align: right;">50.002</td>
+<td style="text-align: right;">-0.438</td>
+<td style="text-align: right;">-0.273</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="interpretation">Interpretation</h2>
+<section id="across-2" class="level3">
+<h3 class="anchored" data-anchor-id="across-2">Across</h3>
+<p>For students who dropped out, if they drop out of high school, they are expected to score -0.335, 95% CI[-0.411, -0.26] lower on math score in 2012 compared to if they stayed.</p>
+</section>
+<section id="within-2" class="level3">
+<h3 class="anchored" data-anchor-id="within-2">Within</h3>
+<p>For students who dropped out, if they drop out of high school, they are expected to score -0.356, 95% CI[-0.438, -0.273] lower on math score in 2012 compared to if they stayed.</p>
+</section>
+</section>
+</section>
+<section id="comparing-the-methods" class="level1">
+<h1>Comparing the methods</h1>
+<p>The estimates, se and df are different for the results from the two different methods. So which one is better? It’s not possible to say based on analysis on one dataset. <span class="citation" data-cites="hill_2004">Hill (<a href="#ref-hill_2004" role="doc-biblioref">2004</a>)</span> and <span class="citation" data-cites="mitra_comparison_2016">Mitra &amp; Reiter (<a href="#ref-mitra_comparison_2016" role="doc-biblioref">2016</a>)</span> conducted simulation studies comparing the two methods. <span class="citation" data-cites="hill_2004">Hill (<a href="#ref-hill_2004" role="doc-biblioref">2004</a>)</span> found that MI Across performed best in terms of absolute bias and mean squared error compared to all the other methods examined in the study. <span class="citation" data-cites="mitra_comparison_2016">Mitra &amp; Reiter (<a href="#ref-mitra_comparison_2016" role="doc-biblioref">2016</a>)</span> found that MI Across resulted in greater bias reduction in the estimation of ATT compared to MI Within. For details of the simulation studies please see the articles.</p>
+</section>
+<section id="references" class="level1">
+
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list">
+<div id="ref-barnard_small-sample_nodate" class="csl-entry" role="listitem">
+Barnard, J., &amp; Rubin, D. B. (1999). <em>Small-<span>Sample</span> <span>Degrees</span> of <span>Freedom</span> with <span>Multiple</span> <span>Imputation</span></em>. 9.
+</div>
+<div id="ref-estimatr_2020" class="csl-entry" role="listitem">
+Blair, G., Cooper, J., Coppock, A., Humphreys, M., &amp; Sonnet, L. (2020). <em>Estimatr: Fast estimators for design-based inference</em>. Retrieved from <a href="https://CRAN.R-project.org/package=estimatr">https://CRAN.R-project.org/package=estimatr</a>
+</div>
+<div id="ref-hill_2004" class="csl-entry" role="listitem">
+Hill, J. (2004). <em>Reducing bias in treatment effect estimation in observational studies suffering from missing data</em>. Columbia University Institute for Social &amp; Economic Research &amp; Policy (ISERP).
+</div>
+<div id="ref-mitra_comparison_2016" class="csl-entry" role="listitem">
+Mitra, R., &amp; Reiter, J. P. (2016). A comparison of two methods of estimating propensity scores after multiple imputation. <em>Statistical Methods in Medical Research</em>, <em>25</em>(1), 188–204. <a href="https://doi.org/10.1177/0962280212445945">https://doi.org/10.1177/0962280212445945</a>
+</div>
+<div id="ref-matchthem_2020" class="csl-entry" role="listitem">
+Pishgar, F., &amp; Greifer, N. (2020). <em>MatchThem: Matching and weighting multiply imputed datasets</em>. Retrieved from <a href="https://CRAN.R-project.org/package=MatchThem">https://CRAN.R-project.org/package=MatchThem</a>
+</div>
+<div id="ref-broom_2020" class="csl-entry" role="listitem">
+Robinson, D., &amp; Hayes, A. (2020). <em>Broom: Convert statistical analysis objects into tidy tibbles</em>. Retrieved from <a href="https://CRAN.R-project.org/package=broom">https://CRAN.R-project.org/package=broom</a>
+</div>
+<div id="ref-rosenbaum1986dropping" class="csl-entry" role="listitem">
+Rosenbaum, P. R. (1986). Dropping out of high school in the united states: An observational study. <em>Journal of Educational Statistics</em>, <em>11</em>(3), 207–224.
+</div>
+<div id="ref-naniar_2020" class="csl-entry" role="listitem">
+Tierney, N., Cook, D., McBain, M., &amp; Fay, C. (2020). <em>Naniar: Data structures, summaries, and visualisations for missing data</em>. Retrieved from <a href="https://CRAN.R-project.org/package=naniar">https://CRAN.R-project.org/package=naniar</a>
+</div>
+<div id="ref-van2018flexible" class="csl-entry" role="listitem">
+van Buuren, S. (2018). <em>Flexible imputation of missing data</em>. Chapman; Hall/CRC.
+</div>
+<div id="ref-vanB_2011" class="csl-entry" role="listitem">
+van Buuren, S., &amp; Groothuis-Oudshoorn, K. (2011). <span class="nocase">mice</span>: Multivariate imputation by chained equations in r. <em>Journal of Statistical Software</em>, <em>45</em>(3), 1–67. Retrieved from <a href="http://www.jstatsoft.org/v45/i03/">http://www.jstatsoft.org/v45/i03/</a>
+</div>
+<div id="ref-tidy_2020" class="csl-entry" role="listitem">
+Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L. D., François, R., … Yutani, H. (2019). Welcome to the <span class="nocase">tidyverse</span>. <em>Journal of Open Source Software</em>, <em>4</em>(43), 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

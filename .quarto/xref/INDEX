@@ -22,5 +22,20 @@
   },
   "software/simhelpers/simhelpers.qmd": {
     "simhelpers.html": "b4dbc5e1"
+  },
+  "posts/2019-10-09_continuous-ps/index.qmd": {
+    "index.html": "60cdb1fa"
+  },
+  "posts/2020-06-23_mi-ps/index.qmd": {
+    "index.html": "610f3a27"
+  },
+  "posts/2021-05-11_CI/index.qmd": {
+    "index.html": "d642914d"
+  },
+  "posts/2021-05-17_I-squared/index.qmd": {
+    "index.html": "a9c2b5dd"
+  },
+  "posts/2022-12-06_ipdma/index.qmd": {
+    "index.html": "57abf50a"
   }
 }

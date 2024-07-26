@@ -1,0 +1,188 @@
+---
+title: "Individual Participant Data Meta-Analysis: Example with R"
+author: "Megha Joshi"
+date: 2022-12-06
+categories: ["meta-analyis", "heterogeneity", "ipdma"]
+bibliography: references.bib
+csl: apa.csl
+draft: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Aggregated Data Meta-Analysis and IPDMA
+
+Traditional meta-analyses use aggregated or summary level information from studies or reports [@cooper_patall_2009; @riley_lambert_abozaid_2010]. Analysts conducting aggregated data meta-analysis would look up relevant literature and code summary statistics needed to calculate one or more effect sizes from each study and also code the corresponding moderator variables. And, then run meta-regression models to (1) summarize effect size estimates across studies, (2) characterize variability in effect sizes across studies, and (3) explain the variability in the effect sizes. Moderator variables will be at the effect size-level or the study-level (e.g., the outcome measure or the percentage of economically disadvantaged students in the sample used to calculate the effect). One drawback of aggregated data meta-analysis is that we cannot examine the effect of moderators at the individual level. For example, we can say that studies with higher percentage of economically disadvantaged students tend to have higher effects of some treatment. However, we cannot say that the treatment works better for economically disadvantaged students. To do so would be to commit [ecological fallacy](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-021-01310-0) [@geissbuehler_hincapie_aghmandi_et_al_2021].
+
+Another way of conducting meta-analysis is to use individual participant-level data instead of aggregated summaries [@riley_lambert_abozaid_2010]. For each study in the meta-analysis, the analyst would have access to the individual-level data. Outcomes and moderator variables will be at the individual level (e.g., students' scores on an achievement test and indicator for whether or not they are economically disadvantaged). Because data is at the individual-level, analysts can conduct subgroup analyses to examine the potentially heterogeneous effects of a treatment for different subgroups [@cooper_patall_2009]. The feasibility of conducting such subgroup analyses provides IPDMA a major advantage over aggregated data meta-analysis, which heavily rely on the analyses conducted by primary study authors who may not have reported results from subgroup analyses.
+
+## IPDMA Analyses in R
+
+There are two ways do conduct IPDMA: (1) one-stage meta-analysis which involves analyzing data from all studies at once; and, (2) two-stage meta-analysis which involves first analyzing individual data separately for each primary study and then synthesizing the effects using meta-regression models [@riley_lambert_abozaid_2010; @cooper_patall_2009]. I will walk through how to run each of these using an example data.
+
+### Example Dataset
+
+I've [tried to](https://twitter.com/jepusto/status/1539286748034916353) find a publicly available IPDMA dataset to use as an example. However, I haven't found one appropriate for this post. Thus, I am using a dataset is from a [block randomized study](https://www.pnas.org/content/113/39/10830) [@bryan_yeager_hinojosa_chabot_bergen_kawamura_steubing_2016]. Blocks can be somewhat thought of as different studies in a meta-analysis (not the same thing but please go along for this post). In the data, students were randomized within classes. There are 30 classrooms (like 30 different studies) within which participants were randomized. The study examined the effects of brief psychological interventions on eating behaviors. The outcome that I am going to analyze is `autonprosocial`, four-item self-report measure of alignment of healthy eating with adolescent values.
+
+```{r, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(knitr)
+library(estimatr)
+library(metafor)
+library(lme4)
+library(lmerTest)
+library(broom)
+library(broom.mixed)
+library(kableExtra)
+library(janitor)
+
+options(knitr.kable.NA = '')
+
+bryan_dat <- read_csv("https://raw.githubusercontent.com/meghapsimatrix/datasets/master/causal/bryan_dat.csv")
+
+glimpse(bryan_dat %>% select(classroom, condition, condition_collapsed, female, autonprosocial))
+
+```
+
+### One Stage IPDMA
+
+One stage IPDMA basically involves running one analysis on all the data accounting for clustering by study. Below I am running HLM using `lmer()` from [`lme4`](https://cran.r-project.org/web/packages/lme4/index.html) package specifying fixed intercepts but random slopes for treatment effect by classroom. The model that I am using is based on suggestion by @bloom2017using. The results table shows the treatment effect estimate (and it's se etc.) and also the estimate of the standard deviation of the treatment effects across classrooms.
+
+```{r}
+# creating treatment indicator
+bryan_dat <-
+  bryan_dat %>%
+  mutate(trt_ind = as.integer(condition_collapsed == "expose treatment"))
+
+
+# function to estimate treatment effects
+estimate_effects <- function(dat, stage){
+  
+  if(stage == "one"){
+    
+    mod <- lmer(autonprosocial ~ 0 + classroom + trt_ind + 
+                (0 + trt_ind | classroom), 
+                data = dat)
+  
+  } else if(stage == "two") {
+    
+    mod <- lm_robust(autonprosocial ~ trt_ind, data = dat)
+    
+  }
+  
+  res <- tidy(mod) %>%
+    filter(str_detect(term, "trt_ind")) %>%
+    clean_names() %>%
+    mutate(v = std_error^2)
+  
+  return(res)
+  
+}
+
+
+
+# estimate of treatment effect and the sd of treatment effect across classrooms
+estimate_effects(bryan_dat, stage = "one") %>%
+  kable(digits = 3) 
+
+```
+
+#### Subgroup Analyses
+
+Below I am creating subgroups based on the `female` variable and estimating the treatment effect and the sd of treatment effects across classrooms for each subgroup:
+
+```{r}
+bryan_dat <- bryan_dat %>%
+  mutate(female = ifelse(female == 1, "Female", "Not Female"))
+
+bryan_dat %>%
+  group_by(female) %>%
+  do(estimate_effects(., stage = "one")) %>%
+  kable(digits = 3)
+```
+
+### Two Stage IPDMA
+
+#### First Stage: Primary Study Analysis
+
+First, I estimate the average treatment effect by block. For IPDMA, we would estimate the treatment effects for each primary study:
+
+```{r}
+first_stage_res <-
+  bryan_dat %>%
+  group_by(classroom) %>%
+  do(estimate_effects(., stage = "two")) 
+
+glimpse(first_stage_res)
+
+```
+
+#### Second Stage: Meta-Analysis
+
+Then, in the second stage, I synthesize the block specific treatment effects using [metafor::rma.uni()](https://wviechtb.github.io/metafor/reference/rma.uni.html), which weighs each effect size estimate by its precision:
+
+```{r}
+second_stage_res <- rma.uni(yi = estimate, 
+                            sei = std_error,
+                            data = first_stage_res, 
+                            method = "REML", 
+                            test = "knha")
+
+tibble(
+  rowname = rownames(second_stage_res$b),
+  estimate = as.vector(second_stage_res$b),
+  SE = second_stage_res$se,
+  ci_lo = second_stage_res$ci.lb,
+  ci_hi = second_stage_res$ci.ub,
+  tau_2 = second_stage_res$tau2
+) %>%
+  kable(digits = 3)
+```
+
+#### Subgroup Analyses
+
+#### First Stage: Primary Study Analysis
+
+Here, I estimate treatment effect by classroom and by the female variable:
+
+```{r}
+subgroup_fs_res <- bryan_dat %>%
+  group_by(classroom, female) %>%
+  do(estimate_effects(., stage = "two"))
+```
+
+#### Second Stage: Meta-Analysis
+
+Then, in the second stage, I synthesize the block specific subgroup effects.
+
+```{r}
+estimate_subgroup_mod <- function(dat){
+  
+  second_stage_res <- rma.uni(yi = estimate, 
+                              sei = std_error,
+                              data = dat, 
+                              method = "REML", 
+                              test = "knha")
+  
+  res <- tibble(
+      rowname = rownames(second_stage_res$b),
+      est = as.vector(second_stage_res$b),
+      SE = second_stage_res$se,
+      ci_lo = second_stage_res$ci.lb,
+      ci_hi = second_stage_res$ci.ub,
+      tau_2 = second_stage_res$tau2
+    )
+
+  return(res)
+  
+}
+  
+subgroup_fs_res %>%
+  group_by(female) %>%
+  do(estimate_subgroup_mod(.)) %>%
+  kable(digits = 3)
+```
+
+## References
