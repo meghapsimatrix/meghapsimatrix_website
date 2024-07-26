@@ -37,5 +37,20 @@
   },
   "posts/2022-12-06_ipdma/index.qmd": {
     "index.html": "57abf50a"
+  },
+  "resume/index.qmd": {
+    "index.html": "5a4fc28b"
+  },
+  "software/simhelpers/index.qmd": {
+    "index.html": "9e8fc72a"
+  },
+  "software/wildmeta/index.qmd": {
+    "index.html": "1d1dff71"
+  },
+  "posts/index.qmd": {
+    "index.html": "a3bb6d69"
+  },
+  "software/index.qmd": {
+    "index.html": "f4ef51d5"
   }
 }

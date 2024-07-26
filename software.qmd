@@ -2,9 +2,7 @@
 title: "Software"
 listing:
   contents: software
-  feed: true
   type: default
-  date-format: medium
   sort: "date desc"
   categories: true
 page-layout: full

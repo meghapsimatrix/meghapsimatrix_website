@@ -2,11 +2,6 @@
 title: "wildmeta"
 date: 2024-07-26
 image: wildmeta_hex.png
-links:
-- name: Website
-  url: https://meghapsimatrix.github.io/wildmeta/
-- name: CRAN
-  url: https://cran.r-project.org/web/packages/wildmeta/index.html
 ---
 
 [Here](https://meghapsimatrix.github.io/wildmeta/index.html) is the website for the package.

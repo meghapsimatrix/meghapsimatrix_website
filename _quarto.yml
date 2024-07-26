@@ -11,6 +11,8 @@ website:
         file: index.qmd
       - posts.qmd
       - software.qmd
+      - text: Resume
+        href: resume/index.qmd
       - icon: github
         href: https://github.com/meghapsimatrix
         
