@@ -1,0 +1,15 @@
+[
+  {
+    "listing": "/software.html",
+    "items": [
+      "/software/wildmeta/wildmeta.html",
+      "/software/simhelpers/simhelpers.html"
+    ]
+  },
+  {
+    "listing": "/posts.html",
+    "items": [
+      "/posts/2020-04-16_missing-dat/index.html"
+    ]
+  }
+]

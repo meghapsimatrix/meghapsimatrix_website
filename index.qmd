@@ -1,0 +1,16 @@
+---
+title: "Megha Joshi"
+image: mj.jpeg
+about: 
+  template: jolla
+  image-width: 14em
+  links:
+    - icon: envelope
+      href: megha.j456@gmail.com
+    - icon: github
+      href: https://github.com/meghapsimatrix
+    - icon: linkedin
+      href: linkedin.com/in/megha-joshi-64472a102
+---
+
+Senior Quantitative Researcher at American Institutes for Research.

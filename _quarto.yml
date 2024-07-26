@@ -1,0 +1,25 @@
+project:
+  type: website
+
+website:
+  title: "Megha"
+  open-graph: true
+  navbar:
+    background: "#9D5783"
+    right:
+      - text: About
+        file: index.qmd
+      - posts.qmd
+      - software.qmd
+      - icon: github
+        href: https://github.com/meghapsimatrix
+        
+
+format:
+  html:
+    theme: litera
+    css: styles.css
+    toc: true
+
+editor: visual
+
