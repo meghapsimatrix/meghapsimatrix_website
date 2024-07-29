@@ -52,5 +52,11 @@
   },
   "software/index.qmd": {
     "index.html": "f4ef51d5"
+  },
+  "publications/cwb/index.qmd": {
+    "index.html": "8217addc"
+  },
+  "publications.qmd": {
+    "publications.html": "b3c10be9"
   }
 }

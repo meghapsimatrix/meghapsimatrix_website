@@ -5,6 +5,9 @@
     ],
     "posts.qmd": [
       "posts"
+    ],
+    "publications.qmd": [
+      "publications"
     ]
   }
 }

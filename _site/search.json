@@ -217,17 +217,10 @@
     "text": "Education\nThe University of Austin at Texas | Austin, TX\nPhD in Quantitative methods | 2021\nBryn Mawr College | Bryn Mawr, PA\nB.A. in Art History and Psychology | 2014"
   },
   {
-    "objectID": "index.html#education",
-    "href": "index.html#education",
+    "objectID": "index.html#section",
+    "href": "index.html#section",
     "title": "Megha Joshi",
     "section": "",
-    "text": "The University of Austin at Texas | Austin, TX\nPhD in Quantitative methods | 2021\nBryn Mawr College | Bryn Mawr, PA\nB.A. in Art History and Psychology | 2014"
-  },
-  {
-    "objectID": "index.html#interests",
-    "href": "index.html#interests",
-    "title": "Megha Joshi",
-    "section": "Interests",
     "text": "Interests\n\nCausal Inference\nMeta-analysis\nBootstrapping\nMissing data\nMachine learning"
   },
   {
@@ -249,7 +242,7 @@
     "href": "software/wildmeta/index.html",
     "title": "wildmeta",
     "section": "",
-    "text": "Website     CRAN \nTypical methods to conduct meta-analysis—pooling effect sizes or analyzing moderating effects with meta-regression—work under the assumption that the effect size estimates are independent. However, primary studies often report multiple estimates of effect sizes. Presence of multiple effect sizes leads to dependence as the estimates within each study are likely correlated (e.g., because the same participants provide multiple outcome scores). The increasingly popular method to handle such dependence, robust variance estimation (RVE), results in inflated Type 1 error rate when the number of studies is small (Hedges, Tipton & Johnson, 2010; Tipton, 2015).\nTipton (2015) and Tipton & Pustejovsky (2015) examined several small sample correction methods. Tipton (2015) recommended CR2 type correction for RVE as well as the use of Satterthwaite degrees of freedom for single coefficient tests. Tipton & Pustejovsky (2015) examined corrections for multiple-contrast hypothesis tests. The authors found that the HTZ test, which is an extension of the CR2 correction method with the Satterthwaite degrees of freedom, controlled Type 1 error rate adequately even when the number of studies was small. However, Joshi, Pustejovsky & Beretvas (2021) showed, through simulations, that the HTZ test can be conservative. We examined another method, cluster wild bootstrapping (CWB), that has been studied in the econometrics literature but not in the meta-analytic context. The results of the simulations from Joshi, Pustejovsky & Beretvas (2021) showed that CWB adequately controlled for Type 1 error rate and had more power than the HTZ test especially for multiple-contrast hypothesis tests.The goal of this package is to provide applied meta-analytic researchers a function with which they can conduct single coefficient tests or multiple-contrast hypothesis tests using cluster wild bootstrapping."
+    "text": "Website   CRAN   \nTypical methods to conduct meta-analysis—pooling effect sizes or analyzing moderating effects with meta-regression—work under the assumption that the effect size estimates are independent. However, primary studies often report multiple estimates of effect sizes. Presence of multiple effect sizes leads to dependence as the estimates within each study are likely correlated (e.g., because the same participants provide multiple outcome scores). The increasingly popular method to handle such dependence, robust variance estimation (RVE), results in inflated Type 1 error rate when the number of studies is small (Hedges, Tipton & Johnson, 2010; Tipton, 2015).\nTipton (2015) and Tipton & Pustejovsky (2015) examined several small sample correction methods. Tipton (2015) recommended CR2 type correction for RVE as well as the use of Satterthwaite degrees of freedom for single coefficient tests. Tipton & Pustejovsky (2015) examined corrections for multiple-contrast hypothesis tests. The authors found that the HTZ test, which is an extension of the CR2 correction method with the Satterthwaite degrees of freedom, controlled Type 1 error rate adequately even when the number of studies was small. However, Joshi, Pustejovsky & Beretvas (2021) showed, through simulations, that the HTZ test can be conservative. We examined another method, cluster wild bootstrapping (CWB), that has been studied in the econometrics literature but not in the meta-analytic context. The results of the simulations from Joshi, Pustejovsky & Beretvas (2021) showed that CWB adequately controlled for Type 1 error rate and had more power than the HTZ test especially for multiple-contrast hypothesis tests.The goal of this package is to provide applied meta-analytic researchers a function with which they can conduct single coefficient tests or multiple-contrast hypothesis tests using cluster wild bootstrapping."
   },
   {
     "objectID": "software.html",
@@ -266,10 +259,17 @@
     "text": "Individual Participant Data Meta-Analysis: Example with R\n\n\n\n\n\n\n\nmeta-analyis\n\n\nheterogeneity\n\n\nipdma\n\n\n\n\n\n\n\n\n\n\n\nDec 6, 2022\n\n\nMegha Joshi\n\n\n\n\n\n\n  \n\n\n\n\nWhat Should I Use to Quantify Heterogeneity in Meta-Analysis?\n\n\n\n\n\n\n\nmeta-analyis\n\n\nheterogeneity\n\n\nI squared\n\n\ntau squared\n\n\nMichael Borenstein\n\n\n\n\n\n\n\n\n\n\n\nMay 17, 2021\n\n\nMegha Joshi\n\n\n\n\n\n\n  \n\n\n\n\nWhat is a Confidence Interval?\n\n\n\n\n\n\n\nstatistics\n\n\nconfidence intervals\n\n\n\n\n\n\n\n\n\n\n\nMay 11, 2021\n\n\nMegha Joshi\n\n\n\n\n\n\n  \n\n\n\n\nPropensity Score Analysis with Multiply Imputed Data\n\n\n\n\n\n\n\npropensity score\n\n\nmissing data\n\n\ncausal inference\n\n\n\n\n\n\n\n\n\n\n\nJun 23, 2020\n\n\nMegha Joshi\n\n\n\n\n\n\n  \n\n\n\n\nMissing Data in Propensity Score Analysis\n\n\n\n\n\n\n\npropensity score\n\n\nmissing data\n\n\ncausal inference\n\n\n\n\n\n\n\n\n\n\n\nApr 16, 2020\n\n\nMegha Joshi\n\n\n\n\n\n\n  \n\n\n\n\nContinuous Treatment in Propensity Score Analysis\n\n\n\n\n\n\n\npropensity score analysis\n\n\ncausal inference\n\n\ncontinuous treatment\n\n\n\n\n\n\n\n\n\n\n\nOct 19, 2019\n\n\nMegha Joshi\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "index.html#section",
-    "href": "index.html#section",
-    "title": "Megha Joshi",
+    "objectID": "publications/cwb/index.html",
+    "href": "publications/cwb/index.html",
+    "title": "Cluster wild bootstrapping to handle dependent effect sizes in meta-analysis with a small number of studies",
     "section": "",
-    "text": "Interests\n\nCausal Inference\nMeta-analysis\nBootstrapping\nMissing data\nMachine learning"
+    "text": "The most common and well-known meta-regression models work under the assumption that there is only one effect size estimate per study and that the estimates are independent. However, meta-analytic reviews of social science research often include multiple effect size estimates per primary study, leading to dependence in the estimates. Some meta-analyses also include multiple studies conducted by the same lab or investigator, creating another potential source of dependence. An increasingly popular method to handle dependence is robust variance estimation (RVE), but this method can result in inflated Type I error rates when the number of studies is small. Small-sample correction methods for RVE have been shown to control Type I error rates adequately but may be overly conservative, especially for tests of multiple-contrast hypotheses. We evaluated an alternative method for handling dependence, cluster wild bootstrapping, which has been examined in the econometrics literature but not in the context of meta-analysis. Results from two simulation studies indicate that cluster wild bootstrapping maintains adequate Type I error rates and provides more power than extant small sample correction methods, particularly for multiple-contrast hypothesis tests. We recommend using cluster wild bootstrapping to conduct hypothesis tests for meta-analyses with a small number of studies. We have also created an R package that implements such tests."
+  },
+  {
+    "objectID": "publications.html",
+    "href": "publications.html",
+    "title": "Publications",
+    "section": "",
+    "text": "Cluster wild bootstrapping to handle dependent effect sizes in meta-analysis with a small number of studies\n\n\n\n\n\n\n\n\n\n\n\n\nFeb 25, 2022\n\n\nMegha Joshi, James E. Pustejovsky, S. Natasha Beretvas\n\n\n\n\n\n\nNo matching items"
   }
 ]

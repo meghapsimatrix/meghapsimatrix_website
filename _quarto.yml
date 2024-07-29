@@ -11,6 +11,7 @@ website:
         file: index.qmd
       - posts.qmd
       - software.qmd
+      - publications.qmd
       - text: Resume
         href: resume/index.qmd
       - icon: github

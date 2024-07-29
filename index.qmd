@@ -3,6 +3,7 @@ title: "Megha Joshi"
 image: mj.jpeg
 about: 
   template: trestles
+  image-shape: round
   image-width: 14em
   links:
     - icon: envelope

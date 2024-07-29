@@ -16,5 +16,11 @@
       "/posts/2020-04-16_missing-dat/index.html",
       "/posts/2019-10-09_continuous-ps/index.html"
     ]
+  },
+  {
+    "listing": "/publications.html",
+    "items": [
+      "/publications/cwb/index.html"
+    ]
   }
 ]
