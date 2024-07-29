@@ -2,7 +2,7 @@
 title: "Megha Joshi"
 image: mj.jpeg
 about: 
-  template: jolla
+  template: trestles
   image-width: 14em
   links:
     - icon: envelope
@@ -13,4 +13,24 @@ about:
       href: linkedin.com/in/megha-joshi-64472a102
 ---
 
-Senior Quantitative Researcher at American Institutes for Research.
+## Education
+
+The University of Austin at Texas \| Austin, TX
+
+PhD in Quantitative methods \| 2021
+
+Bryn Mawr College \| Bryn Mawr, PA
+
+B.A. in Art History and Psychology \| 2014
+
+## Interests 
+
+-   Causal Inference
+
+-   Meta-analysis
+
+-   Bootstrapping
+
+-   Missing data
+
+-   Machine learning

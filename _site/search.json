@@ -214,7 +214,7 @@
     "href": "index.html",
     "title": "Megha Joshi",
     "section": "",
-    "text": "Senior Quantitative Researcher at American Institutes for Research."
+    "text": "The University of Austin at Texas | Austin, TX\nPhD in Quantitative methods | 2021\nBryn Mawr College | Bryn Mawr, PA\nB.A. in Art History and Psychology | 2014"
   },
   {
     "objectID": "software/simhelpers/index.html",
@@ -257,5 +257,19 @@
     "title": "Posts",
     "section": "",
     "text": "Individual Participant Data Meta-Analysis: Example with R\n\n\n\n\n\n\n\nmeta-analyis\n\n\nheterogeneity\n\n\nipdma\n\n\n\n\n\n\n\n\n\n\n\nDec 6, 2022\n\n\nMegha Joshi\n\n\n\n\n\n\n  \n\n\n\n\nWhat Should I Use to Quantify Heterogeneity in Meta-Analysis?\n\n\n\n\n\n\n\nmeta-analyis\n\n\nheterogeneity\n\n\nI squared\n\n\ntau squared\n\n\nMichael Borenstein\n\n\n\n\n\n\n\n\n\n\n\nMay 17, 2021\n\n\nMegha Joshi\n\n\n\n\n\n\n  \n\n\n\n\nWhat is a Confidence Interval?\n\n\n\n\n\n\n\nstatistics\n\n\nconfidence intervals\n\n\n\n\n\n\n\n\n\n\n\nMay 11, 2021\n\n\nMegha Joshi\n\n\n\n\n\n\n  \n\n\n\n\nPropensity Score Analysis with Multiply Imputed Data\n\n\n\n\n\n\n\npropensity score\n\n\nmissing data\n\n\ncausal inference\n\n\n\n\n\n\n\n\n\n\n\nJun 23, 2020\n\n\nMegha Joshi\n\n\n\n\n\n\n  \n\n\n\n\nMissing Data in Propensity Score Analysis\n\n\n\n\n\n\n\npropensity score\n\n\nmissing data\n\n\ncausal inference\n\n\n\n\n\n\n\n\n\n\n\nApr 16, 2020\n\n\nMegha Joshi\n\n\n\n\n\n\n  \n\n\n\n\nContinuous Treatment in Propensity Score Analysis\n\n\n\n\n\n\n\npropensity score analysis\n\n\ncausal inference\n\n\ncontinuous treatment\n\n\n\n\n\n\n\n\n\n\n\nOct 19, 2019\n\n\nMegha Joshi\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html#education",
+    "href": "index.html#education",
+    "title": "Megha Joshi",
+    "section": "",
+    "text": "The University of Austin at Texas | Austin, TX\nPhD in Quantitative methods | 2021\nBryn Mawr College | Bryn Mawr, PA\nB.A. in Art History and Psychology | 2014"
+  },
+  {
+    "objectID": "index.html#interests",
+    "href": "index.html#interests",
+    "title": "Megha Joshi",
+    "section": "Interests",
+    "text": "Interests\n\nCausal Inference\nMeta-analysis\nBootstrapping\nMissing data\nMachine learning"
   }
 ]
