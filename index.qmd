@@ -13,7 +13,7 @@ about:
       href: linkedin.com/in/megha-joshi-64472a102
 ---
 
-## Education
+**Education**
 
 The University of Austin at Texas \| Austin, TX
 
@@ -23,7 +23,9 @@ Bryn Mawr College \| Bryn Mawr, PA
 
 B.A. in Art History and Psychology \| 2014
 
-## Interests 
+## 
+
+**Interests**
 
 -   Causal Inference
 
