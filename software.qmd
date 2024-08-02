@@ -5,6 +5,6 @@ listing:
   type: default
   sort: "date desc"
   categories: true
-page-layout: full
+page-layout: article
 title-block-banner: true
 ---

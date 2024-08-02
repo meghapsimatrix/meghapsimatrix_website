@@ -58,5 +58,26 @@
   },
   "publications.qmd": {
     "publications.html": "b3c10be9"
+  },
+  "publications/missing_data/index.qmd": {
+    "index.html": "1428f157"
+  },
+  "posts/missing_dat/index.qmd": {
+    "index.html": "5f453d38"
+  },
+  "posts/CI/index.qmd": {
+    "index.html": "5fd02928"
+  },
+  "posts/I_squared/index.qmd": {
+    "index.html": "c1000d72"
+  },
+  "posts/mi_ps/index.qmd": {
+    "index.html": "89eae204"
+  },
+  "posts/ipd_meta/index.qmd": {
+    "index.html": "2c6cbfd5"
+  },
+  "posts/continuous_ps/index.qmd": {
+    "index.html": "ede84005"
   }
 }

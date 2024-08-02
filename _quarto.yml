@@ -2,8 +2,12 @@ project:
   type: website
 
 website:
-  title: "Megha"
+  title: "Megha Joshi"
+  site-url: https://meghapsimatrix.com
+  repo-url: https://github.com/meghapsimatrix/meghapsimatrix_website
   open-graph: true
+  page-navigation: true
+  back-to-top-navigation: true
   navbar:
     background: "#9D5783"
     right:
@@ -23,6 +27,9 @@ format:
     theme: darkly
     css: styles.css
     toc: true
+    
+execute:
+  freeze: auto
 
 editor: visual
 

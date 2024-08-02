@@ -1,6 +1,8 @@
 ---
 title: "Megha Joshi"
+subtitle: "Senior Quantitative Researcher<br>American Institutes for Research"
 image: mj.jpeg
+page-layout: full
 about: 
   template: trestles
   image-shape: round
@@ -10,23 +12,21 @@ about:
       href: megha.j456@gmail.com
     - icon: github
       href: https://github.com/meghapsimatrix
+    - text: "{{< ai google-scholar >}}"
+      href: https://scholar.google.com/citations?user=D8QFfGsAAAAJ&hl=en
     - icon: linkedin
       href: linkedin.com/in/megha-joshi-64472a102
+toc: false
+
+execute: 
+  freeze: false
+  echo: false
+  warning: false
 ---
 
-**Education**
-
-The University of Austin at Texas \| Austin, TX
-
-PhD in Quantitative methods \| 2021
-
-Bryn Mawr College \| Bryn Mawr, PA
-
-B.A. in Art History and Psychology \| 2014
-
-## 
-
-**Interests**
+::: grid
+::: g-col-6
+## Interests
 
 -   Causal Inference
 
@@ -37,3 +37,13 @@ B.A. in Art History and Psychology \| 2014
 -   Missing data
 
 -   Machine learning
+:::
+
+::: g-col-6
+## Education
+
+{{< fa graduation-cap >}} PhD in Quantitative Methods, 2021 <br> [The University of Austin at Texas]{style="color:grey;"}
+
+{{< fa graduation-cap >}} BA in Art History and Psychology, 2014 <br> [Bryn Mawr College]{style="color:grey;"}
+:::
+:::
