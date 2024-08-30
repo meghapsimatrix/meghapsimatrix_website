@@ -9,13 +9,13 @@ about:
   image-width: 14em
   links:
     - icon: envelope
-      href: megha.j456@gmail.com
+      href: 'mailto:megha.j456@gmail.com'
     - icon: github
       href: https://github.com/meghapsimatrix
     - text: "{{< ai google-scholar >}}"
       href: https://scholar.google.com/citations?user=D8QFfGsAAAAJ&hl=en
     - icon: linkedin
-      href: linkedin.com/in/megha-joshi-64472a102
+      href: https://www.linkedin.com/in/megha-joshi-64472a102
 toc: false
 
 execute: 
