@@ -271,7 +271,7 @@ div.csl-indent {
 </section>
 <section id="read-in-the-data" class="level1">
 <h1>Read in the data</h1>
-<p>Below, I show how to implement the Across and Within methods to estimate the average treatment effect on the treated (ATT). The data that I use here is from High School and Beyond (HSB) longitudinal study used by <span class="citation" data-cites="rosenbaum1986dropping">Rosenbaum (<a href="#ref-rosenbaum1986dropping" role="doc-biblioref">1986</a>)</span> to analyze the effect of dropping out of high school on later math achievement for students who dropped out. For the purpose of this example, I am going to assume a simple random sample.</p>
+<p>Below, I show how to implement the Across and Within methods to estimate the average treatment effect on the treated (ATT). The data that I use here is from <a href="https://nces.ed.gov/surveys/hsls09/index.asp">High School Longitudinal Study of 2009</a> to analyze the effect of dropping out of high school on later math achievement for students who dropped out. For the purpose of this example, I am going to assume a simple random sample.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mice)</span>
@@ -609,9 +609,6 @@ Pishgar, F., &amp; Greifer, N. (2020). <em>MatchThem: Matching and weighting mul
 </div>
 <div id="ref-broom_2020" class="csl-entry" role="listitem">
 Robinson, D., &amp; Hayes, A. (2020). <em>Broom: Convert statistical analysis objects into tidy tibbles</em>. Retrieved from <a href="https://CRAN.R-project.org/package=broom">https://CRAN.R-project.org/package=broom</a>
-</div>
-<div id="ref-rosenbaum1986dropping" class="csl-entry" role="listitem">
-Rosenbaum, P. R. (1986). Dropping out of high school in the united states: An observational study. <em>Journal of Educational Statistics</em>, <em>11</em>(3), 207–224.
 </div>
 <div id="ref-naniar_2020" class="csl-entry" role="listitem">
 Tierney, N., Cook, D., McBain, M., &amp; Fay, C. (2020). <em>Naniar: Data structures, summaries, and visualisations for missing data</em>. Retrieved from <a href="https://CRAN.R-project.org/package=naniar">https://CRAN.R-project.org/package=naniar</a>
