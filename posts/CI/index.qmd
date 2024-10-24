@@ -163,7 +163,7 @@ To measure the uncertainty in my estimated height, I would rely on something cal
 set.seed(05042021)
 
 samples_ci <- 
-  rerun(10000, {
+  map_dfr(1:10000, ~ {
     x <- sample(heights$heights, size = 10)
     m <- mean(x)
     sd <- sd(x)

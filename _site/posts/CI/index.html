@@ -467,7 +467,7 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">05042021</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>samples_ci <span class="ot">&lt;-</span> </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rerun</span>(<span class="dv">10000</span>, {</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>, <span class="sc">~</span> {</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">sample</span>(heights<span class="sc">$</span>heights, <span class="at">size =</span> <span class="dv">10</span>)</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    m <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(x)</span>
@@ -476,39 +476,17 @@ window.Quarto = {
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">ci_l =</span> m <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> sd<span class="sc">/</span> <span class="fu">sqrt</span>(n),</span>
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">ci_u =</span> m <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> sd<span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">%&gt;%</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: `rerun()` was deprecated in purrr 1.0.0.
-ℹ Please use `map()` instead.
-  # Previously
-rerun(10000, {
-x &lt;- sample(heights$heights, size = 10)
-m &lt;- mean(x)
-sd &lt;- sd(x)
-n &lt;- 10
-tibble(mean = m, ci_l = m - 1.96 * sd / sqrt(n), ci_u = m + 1.96 * sd / sqrt(
-n))
-})
-
-  # Now
-map(1:10000, ~ {
-x &lt;- sample(heights$heights, size = 10)
-m &lt;- mean(x)
-sd &lt;- sd(x)
-n &lt;- 10
-tibble(mean = m, ci_l = m - 1.96 * sd / sqrt(n), ci_u = m + 1.96 * sd / sqrt(
-n))
-})</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>samples_ci <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean)) <span class="sc">+</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">bins =</span> <span class="dv">50</span>, </span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill =</span> <span class="st">"dark red"</span>) <span class="sc">+</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Average Heights from Different Samples"</span>, </span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Samples"</span>,</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Distribution of Average Sample Heights"</span>) <span class="sc">+</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>samples_ci <span class="sc">%&gt;%</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean)) <span class="sc">+</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>                 <span class="at">bins =</span> <span class="dv">50</span>, </span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill =</span> <span class="st">"dark red"</span>) <span class="sc">+</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Average Heights from Different Samples"</span>, </span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Samples"</span>,</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Distribution of Average Sample Heights"</span>) <span class="sc">+</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -532,10 +510,10 @@ n))
 <h3 class="anchored" data-anchor-id="cis-of-sample-means-in-sampling-distribution">CI’s of Sample Means in Sampling Distribution</h3>
 <p>In the graph of the sampling distribution above, some of the sample means are way out there. For example, there are some near 6. The table below shows 5 of these sample means and their corresponding CIs. The CIs don’t contain 5.5, the true mean.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>samples_ci <span class="sc">%&gt;%</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(mean <span class="sc">&gt;</span> <span class="fl">5.9</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tail</span>(<span class="at">n =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>samples_ci <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(mean <span class="sc">&gt;</span> <span class="fl">5.9</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tail</span>(<span class="at">n =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -577,10 +555,10 @@ n))
 </div>
 <p>Below are the sample means and CI’s at the lower end of the distribution. These CI’s also don’t contain 5.5.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>samples_ci <span class="sc">%&gt;%</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(mean <span class="sc">&lt;</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tail</span>(<span class="at">n =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>samples_ci <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(mean <span class="sc">&lt;</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tail</span>(<span class="at">n =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -634,14 +612,14 @@ n))
 <p>In repeated sampling as above, if I were to create confidence intervals around each of the means, approximately 95% of them would capture the true population mean 5.5.</p>
 <p>The proportion of CI’s from the 10,000 samples that I drew above that contain the true parameter is:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>samples_ci <span class="ot">&lt;-</span> </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  samples_ci <span class="sc">%&gt;%</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">captures =</span> <span class="fu">ifelse</span>(<span class="fl">5.5</span> <span class="sc">&lt;</span> ci_u <span class="sc">&amp;</span> <span class="fl">5.5</span> <span class="sc">&gt;</span> ci_l, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)) </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>samples_ci <span class="sc">%&gt;%</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">prop =</span> <span class="fu">mean</span>(captures),</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">sum</span>(captures)) <span class="sc">%&gt;%</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>samples_ci <span class="ot">&lt;-</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  samples_ci <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">captures =</span> <span class="fu">ifelse</span>(<span class="fl">5.5</span> <span class="sc">&lt;</span> ci_u <span class="sc">&amp;</span> <span class="fl">5.5</span> <span class="sc">&gt;</span> ci_l, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)) </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>samples_ci <span class="sc">%&gt;%</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">prop =</span> <span class="fu">mean</span>(captures),</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">sum</span>(captures)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -668,28 +646,28 @@ n))
 <h2 class="anchored" data-anchor-id="what-does-ci-tell-me">What does CI tell me?</h2>
 <p>The width of the confidence intervals tells me how precise the estimate is. When sample size is small, we won’t get very precise estimates. Estimated average heights will be too noisy, too different from sample to sample. When sample size is large, estimated average heights will be more precise. The table below shows mean and CIs calculated from a random sample of 5 people and from another random sample of 1000 people from the population distribution of heights.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">05052021</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>small_s4 <span class="ot">&lt;-</span> <span class="fu">sample</span>(heights<span class="sc">$</span>heights, <span class="at">size =</span> <span class="dv">5</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>m_s4 <span class="ot">&lt;-</span> <span class="fu">mean</span>(small_s4)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>sd_s4 <span class="ot">&lt;-</span> <span class="fu">sd</span>(small_s4)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>n_s4 <span class="ot">&lt;-</span> <span class="fu">length</span>(small_s4)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">05062021</span>)</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>large_s5 <span class="ot">&lt;-</span> <span class="fu">sample</span>(heights<span class="sc">$</span>heights, <span class="at">size =</span> <span class="dv">1000</span>)</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>m_s5 <span class="ot">&lt;-</span> <span class="fu">mean</span>(large_s5)</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>sd_s5 <span class="ot">&lt;-</span> <span class="fu">sd</span>(large_s5)</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>n_s5 <span class="ot">&lt;-</span> <span class="fu">length</span>(large_s5)</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>small <span class="ot">&lt;-</span> <span class="fu">calculate_ci</span>(<span class="at">m =</span> m_s4, <span class="at">sd =</span> sd_s4, <span class="at">n =</span> n_s4) <span class="sc">%&gt;%</span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> n_s4)</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>large <span class="ot">&lt;-</span> <span class="fu">calculate_ci</span>(<span class="at">m =</span> m_s5, <span class="at">sd =</span> sd_s5, <span class="at">n =</span> n_s5) <span class="sc">%&gt;%</span></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> n_s5)</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(small, large) <span class="sc">%&gt;%</span></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">width =</span> ci_u <span class="sc">-</span> ci_l) <span class="sc">%&gt;%</span></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(n, <span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">05052021</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>small_s4 <span class="ot">&lt;-</span> <span class="fu">sample</span>(heights<span class="sc">$</span>heights, <span class="at">size =</span> <span class="dv">5</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>m_s4 <span class="ot">&lt;-</span> <span class="fu">mean</span>(small_s4)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>sd_s4 <span class="ot">&lt;-</span> <span class="fu">sd</span>(small_s4)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>n_s4 <span class="ot">&lt;-</span> <span class="fu">length</span>(small_s4)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">05062021</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>large_s5 <span class="ot">&lt;-</span> <span class="fu">sample</span>(heights<span class="sc">$</span>heights, <span class="at">size =</span> <span class="dv">1000</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>m_s5 <span class="ot">&lt;-</span> <span class="fu">mean</span>(large_s5)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>sd_s5 <span class="ot">&lt;-</span> <span class="fu">sd</span>(large_s5)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>n_s5 <span class="ot">&lt;-</span> <span class="fu">length</span>(large_s5)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>small <span class="ot">&lt;-</span> <span class="fu">calculate_ci</span>(<span class="at">m =</span> m_s4, <span class="at">sd =</span> sd_s4, <span class="at">n =</span> n_s4) <span class="sc">%&gt;%</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> n_s4)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>large <span class="ot">&lt;-</span> <span class="fu">calculate_ci</span>(<span class="at">m =</span> m_s5, <span class="at">sd =</span> sd_s5, <span class="at">n =</span> n_s5) <span class="sc">%&gt;%</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> n_s5)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(small, large) <span class="sc">%&gt;%</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">width =</span> ci_u <span class="sc">-</span> ci_l) <span class="sc">%&gt;%</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(n, <span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -741,7 +719,7 @@ n))
 <p>Then we recommend what method should be used under what conditions. This is why it is important to evaluate whether assumptions hold or not when you are running analyses :) Those assumptions can tell you how close the estimate is to the true mean.</p>
 <section id="wait-what-is-precision-accuracy-bias" class="level3">
 <h3 class="anchored" data-anchor-id="wait-what-is-precision-accuracy-bias">Wait what is precision, accuracy, bias?</h3>
-<p><img src="../../img/precision_accuracy.png" class="img-fluid"></p>
+<p><img src="precision_accuracy.png" class="img-fluid"></p>
 <p>Consider the <a href="https://manoa.hawaii.edu/exploringourfluidearth/physical/world-ocean/map-distortion/practices-science-precision-vs-accuracy">image above</a>. The center of the dart board is the population parameter, the population average height of 5.5. Each of the dart is a sample and where it lands is the sample statistic. The goal is for each statistic to be as close as possible to the center.</p>
 <p><strong>Precision</strong> - Precision indicates that statistics from different samples are close to each other even if all the statistics are far away from the center. Panels B and D in the image above show high precision but note that in B the dart locations are far away from center.</p>
 <p><strong>Bias</strong> - Bias indicates that the average of the locations of the darts is not close to the center - the true parameter. The darts can be far apart from each other but if you take an average of their locations that should be close to the center for an estimator to be unbiased. Panels C and D indicate low bias but note that in C darts are all over the place - any one sample is super far from the center - but if you take their average that average will be close to the center.</p>
