@@ -1,6 +1,5 @@
 ---
 title: "Megha Joshi"
-subtitle: "Senior Quantitative Researcher<br>American Institutes for Research"
 image: mj.jpeg
 page-layout: full
 about: 
