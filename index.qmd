@@ -41,7 +41,7 @@ execute:
 ::: g-col-6
 ## Education
 
-{{< fa graduation-cap >}} PhD in Quantitative Methods, 2021 <br> [The University of Austin at Texas]{style="color:grey;"}
+{{< fa graduation-cap >}} PhD in Quantitative Methods, 2021 <br> [The University of Texas at Austin]{style="color:grey;"}
 
 {{< fa graduation-cap >}} BA in Art History and Psychology, 2014 <br> [Bryn Mawr College]{style="color:grey;"}
 :::
