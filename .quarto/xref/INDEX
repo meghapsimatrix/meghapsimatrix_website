@@ -79,5 +79,11 @@
   },
   "posts/continuous_ps/index.qmd": {
     "index.html": "ede84005"
+  },
+  "publications/tcmc/index.qmd": {
+    "index.html": "de4b916b"
+  },
+  "publications/dyad_triad/index.qmd": {
+    "index.html": "3be464d0"
   }
 }

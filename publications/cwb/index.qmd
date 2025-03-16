@@ -11,6 +11,10 @@ author:
       given: S. Natasha
       family: Beretvas
 date: 2022-02-25
+categories:
+- meta-analysis
+- simulation
+- cluster wild bootstrapping
 citation: 
   type: article-journal
   container-title: Research Synthesis Methods

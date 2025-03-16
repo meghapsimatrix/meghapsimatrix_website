@@ -9,6 +9,9 @@ author:
   - name: Ryoungsun Park
   - name: Graham J McDougall
 date: 2019-09-25
+categories:
+- missing data
+- simulation
 citation: 
   type: article-journal
   container-title: Multivariate Behavioral Research

@@ -14,7 +14,9 @@
     "listing": "/publications.html",
     "items": [
       "/publications/cwb/index.html",
-      "/publications/missing_data/index.html"
+      "/publications/missing_data/index.html",
+      "/publications/tcmc/index.html",
+      "/publications/dyad_triad/index.html"
     ]
   },
   {
