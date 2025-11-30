@@ -25,5 +25,11 @@
       "/software/wildmeta/index.html",
       "/software/simhelpers/index.html"
     ]
+  },
+  {
+    "listing": "/teaching.html",
+    "items": [
+      "/teaching/Data_Analytics_in_R/index.html"
+    ]
   }
 ]

@@ -23,7 +23,7 @@ execute:
   warning: false
 ---
 
-::: grid
+::::: grid
 ::: g-col-6
 ## Interests
 
@@ -45,4 +45,4 @@ execute:
 
 {{< fa graduation-cap >}} BA in Art History and Psychology, 2014 <br> [Bryn Mawr College]{style="color:grey;"}
 :::
-:::
+:::::

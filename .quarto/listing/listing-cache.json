@@ -8,6 +8,9 @@
     ],
     "posts.qmd": [
       "posts"
+    ],
+    "teaching.qmd": [
+      "teaching"
     ]
   }
 }

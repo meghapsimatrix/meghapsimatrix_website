@@ -6,16 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Keenan A. Pituch">
 <meta name="author" content="Megha Joshi">
-<meta name="author" content="Molly E Cain">
-<meta name="author" content="Tiffany A Whittaker">
-<meta name="author" content="Wanchen Chang">
-<meta name="author" content="Ryoungsun Park">
-<meta name="author" content="Graham J McDougall">
-<meta name="dcterms.date" content="2019-09-25">
+<meta name="author" content="Tiffany Kollah">
+<meta name="dcterms.date" content="2025-12-01">
 
-<title>The performance of multivariate methods for two-group comparisons with small samples and incomplete data – Megha Joshi</title>
+<title>Data Analytics in R – Megha Joshi</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -79,29 +74,18 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="../../styles.css">
-<meta property="og:title" content="The performance of multivariate methods for two-group comparisons with small samples and incomplete data – Megha Joshi">
+<meta property="og:title" content="Data Analytics in R – Megha Joshi">
 <meta property="og:description" content="">
 <meta property="og:site_name" content="Megha Joshi">
-<meta name="citation_title" content="The performance of multivariate methods for two-group comparisons with small samples and incomplete data">
-<meta name="citation_author" content="Keenan A. Pituch">
+<meta name="citation_title" content="Data Analytics in R">
 <meta name="citation_author" content="Megha Joshi">
-<meta name="citation_author" content="Molly E Cain">
-<meta name="citation_author" content="Tiffany A Whittaker">
-<meta name="citation_author" content="Wanchen Chang">
-<meta name="citation_author" content="Ryoungsun Park">
-<meta name="citation_author" content="Graham J McDougall">
-<meta name="citation_publication_date" content="2019-09-25">
-<meta name="citation_cover_date" content="2019-09-25">
-<meta name="citation_year" content="2019">
-<meta name="citation_online_date" content="2019-09-25">
-<meta name="citation_fulltext_html_url" content="https://doi.org/10.1080/00273171.2019.1667217">
-<meta name="citation_issue" content="5">
-<meta name="citation_doi" content="10.1080/00273171.2019.1667217">
-<meta name="citation_volume" content="55">
+<meta name="citation_author" content="Tiffany Kollah">
+<meta name="citation_publication_date" content="2025-12-01">
+<meta name="citation_cover_date" content="2025-12-01">
+<meta name="citation_year" content="2025">
+<meta name="citation_online_date" content="2025-12-01">
+<meta name="citation_fulltext_html_url" content="https://meghapsimatrix.com/teaching/Data_Analytics_in_R/">
 <meta name="citation_language" content="en">
-<meta name="citation_firstpage" content="704">
-<meta name="citation_lastpage" content="721">
-<meta name="citation_journal_title" content="Multivariate Behavioral Research">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -138,6 +122,10 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Selected Publications</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../../teaching.html"> 
+<span class="menu-text">Teaching</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../../resume/index.html"> 
 <span class="menu-text">Resume</span></a>
   </li>  
@@ -168,62 +156,37 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   
   <div class="quarto-title column-body">
-    <h1 class="title">The performance of multivariate methods for two-group comparisons with small samples and incomplete data</h1>
+    <h1 class="title">Data Analytics in R</h1>
       </div>
 
   <div class="quarto-title-meta">
         <div>
       <div class="quarto-title-meta-heading">Authors</div>
       <div class="quarto-title-meta-contents">
-        <p class="author">Keenan A. Pituch</p><p class="author">Megha Joshi</p><p class="author">Molly E Cain</p><p class="author">Tiffany A Whittaker</p><p class="author">Wanchen Chang</p><p class="author">Ryoungsun Park</p><p class="author">Graham J McDougall</p>
+        <p class="author">Megha Joshi</p><p class="author">Tiffany Kollah</p>
       </div>
     </div>
         <div>
           <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-                <p class="date">September 25, 2019</p>
+                <p class="date">December 1, 2025</p>
               </div>
     </div>
               <div class="software-links quarto-links">
-            <a href="https://doi.org/10.1080/00273171.2019.1667217" class="btn btn-outline-primary">
-        <i class="bi bi-newspaper" aria-label="newspaper"></i>
-        Journal
-      </a>
-            <a href="https://www.tandfonline.com/doi/suppl/10.1080/00273171.2019.1667217?scroll=top" class="btn btn-outline-primary">
+            <a href="https://meghapsimatrix.quarto.pub/data-analytics-in-r/" class="btn btn-outline-primary">
         
-        Supplementary materials
+        Website
       </a>
             </div>
       </div>
 </header>
 
 
-<p>In intervention studies having multiple outcomes, researchers often use a series of univari-ate tests (e.g., ANOVAs) to assess group mean differences. Previous research found that thisapproach properly controls Type I error and generally provides greater power compared toMANOVA, especially under realistic effect size and correlation combinations. However, whengroup differences are assessed for a specific outcome, these procedures are strictly univari-ate and do not consider the outcome correlations, which may be problematic with missingoutcome data. Linear mixed or multivariate multilevel models (MVMMs), implemented withmaximum likelihood estimation, present an alternative analysis option where outcome cor-relations are taken into account when specific group mean differences are estimated. In thisstudy, we use simulation methods to compare the performance of separate independentsamplesttests estimated with ordinary least squares and analogousttests from MVMMs toassess two-group mean differences with multiple outcomes under small sample and miss-ingness conditions. Study results indicated that a MVMM implemented with restricted maximum likelihood estimation combined with the Kenward–Roger correction had the best performance. Therefore, for intervention studies with smallNand normally distributed multi-variate outcomes, the Kenward–Roger procedure is recommended over traditional methods and conventional MVMM analyses, particularly with incomplete data.</p>
+<p>This free course is intended to sharpen your data analytic skills to prepare you to transition to jobs and careers requiring such skills. This course will involve classes covering data visualization, data wrangling, and data analytics. We also plan to add courses for more advanced topics in the future. For each topic, we provide a set intensive practice problem sets that will help you learn concepts covered in class. Some of the exercises will be based on topics covered during the lecture and some will require you to think a bit creatively and maybe do some searching online.</p>
 
 
 
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@article{a._pituch2019,
-  author = {A. Pituch, Keenan and Joshi, Megha and E Cain, Molly and A
-    Whittaker, Tiffany and Chang, Wanchen and Park, Ryoungsun and J
-    McDougall, Graham},
-  title = {The Performance of Multivariate Methods for Two-Group
-    Comparisons with Small Samples and Incomplete Data},
-  journal = {Multivariate Behavioral Research},
-  volume = {55},
-  number = {5},
-  pages = {704-721},
-  date = {2019-09-25},
-  url = {https://doi.org/10.1080/00273171.2019.1667217},
-  doi = {10.1080/00273171.2019.1667217},
-  langid = {en}
-}
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-a._pituch2019" class="csl-entry quarto-appendix-citeas" role="listitem">
-A. Pituch, K., Joshi, M., E Cain, M., A Whittaker, T., Chang, W., Park,
-R., &amp; J McDougall, G. (2019). The performance of multivariate
-methods for two-group comparisons with small samples and incomplete
-data. <em>Multivariate Behavioral Research</em>, <em>55</em>(5),
-704–721. <a href="https://doi.org/10.1080/00273171.2019.1667217">https://doi.org/10.1080/00273171.2019.1667217</a>
-</div></div></section></div></main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

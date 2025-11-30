@@ -85,5 +85,11 @@
   },
   "publications/dyad_triad/index.qmd": {
     "index.html": "3be464d0"
+  },
+  "teaching.qmd": {
+    "teaching.html": "0d1754d5"
+  },
+  "teaching/Data_Analytics_in_R/index.qmd": {
+    "index.html": "568bcf44"
   }
 }
