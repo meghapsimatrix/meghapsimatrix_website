@@ -1,5 +1,8 @@
 {
   "listingMap": {
+    "teaching.qmd": [
+      "teaching"
+    ],
     "publications.qmd": [
       "publications"
     ],
@@ -8,9 +11,6 @@
     ],
     "posts.qmd": [
       "posts"
-    ],
-    "teaching.qmd": [
-      "teaching"
     ]
   }
 }
