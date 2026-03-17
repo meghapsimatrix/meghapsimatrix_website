@@ -1,0 +1,18 @@
+---
+title: "Research Assistants"
+anchor-sections: false
+---
+
+::: {layout-ncol="2"}
+![](images/rumi.jpg){width="338"}
+
+![](images/yori.jpeg){width="338"}
+
+![](images/rumi2.jpg){width="336"}
+
+![](images/moni.jpg){width="333"}
+
+![](images/tweetie.jpg){width="332"}
+
+![](images/toshie.jpg){width="328"}
+:::

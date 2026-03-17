@@ -17,6 +17,7 @@ website:
       - software.qmd
       - publications.qmd
       - teaching.qmd
+      - research-assistants.qmd
       - text: Resume
         href: resume/index.qmd
       - icon: github
