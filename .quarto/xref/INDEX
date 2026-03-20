@@ -94,5 +94,11 @@
   },
   "research-assistants.qmd": {
     "research-assistants.html": "5ce6f3e8"
+  },
+  "software/metaselection/index.qmd": {
+    "index.html": "ff4e829e"
+  },
+  "software/evidence_gap_map_shiny/index.qmd": {
+    "index.html": "9f7c706c"
   }
 }

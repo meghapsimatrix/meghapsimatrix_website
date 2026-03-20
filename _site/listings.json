@@ -13,8 +13,10 @@
   {
     "listing": "/software.html",
     "items": [
+      "/software/metaselection/index.html",
       "/software/wildmeta/index.html",
-      "/software/simhelpers/index.html"
+      "/software/simhelpers/index.html",
+      "/software/evidence_gap_map_shiny/index.html"
     ]
   },
   {

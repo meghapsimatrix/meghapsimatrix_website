@@ -6,8 +6,12 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="James E. Pustejovsky">
+<meta name="author" content="Megha Joshi">
+<meta name="author" content="Martyna Citkowicz">
+<meta name="dcterms.date" content="2026-03-20">
 
-<title>Software – Megha Joshi</title>
+<title>metaselection – Megha Joshi</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,26 +27,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a9d1393a921a598e5d6467954ced1de7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-a9d1393a921a598e5d6467954ced1de7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,82 +72,35 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Software – Megha Joshi">
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="metaselection – Megha Joshi">
+<meta property="og:description" content="">
 <meta property="og:image" content="https://meghapsimatrix.com/software/metaselection/featured.png">
 <meta property="og:site_name" content="Megha Joshi">
 <meta property="og:image:height" content="2100">
 <meta property="og:image:width" content="3000">
+<meta name="citation_title" content="metaselection">
+<meta name="citation_author" content="James E. Pustejovsky">
+<meta name="citation_author" content="Megha Joshi">
+<meta name="citation_author" content="Martyna Citkowicz">
+<meta name="citation_publication_date" content="2026-03-20">
+<meta name="citation_cover_date" content="2026-03-20">
+<meta name="citation_year" content="2026">
+<meta name="citation_online_date" content="2026-03-20">
+<meta name="citation_fulltext_html_url" content="https://meghapsimatrix.com/software/metaselection/">
+<meta name="citation_language" content="en">
 </head>
 
 <body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Megha Joshi</span>
     </a>
   </div>
@@ -156,31 +111,31 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./posts.html"> 
+    <a class="nav-link" href="../../posts.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./software.html" aria-current="page"> 
+    <a class="nav-link" href="../../software.html"> 
 <span class="menu-text">Software</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./publications.html"> 
+    <a class="nav-link" href="../../publications.html"> 
 <span class="menu-text">Selected Publications</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./teaching.html"> 
+    <a class="nav-link" href="../../teaching.html"> 
 <span class="menu-text">Teaching</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./research-assistants.html"> 
+    <a class="nav-link" href="../../research-assistants.html"> 
 <span class="menu-text">Research Assistants</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./resume/index.html"> 
+    <a class="nav-link" href="../../resume/index.html"> 
 <span class="menu-text">Resume</span></a>
   </li>  
   <li class="nav-item compact">
@@ -196,144 +151,55 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body">
-      <h1 class="title">Software</h1>
-                      </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta">
-
-      
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(4)</span></div></div></div>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 
 
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  
+  <div class="quarto-title column-body">
+    <h1 class="title">metaselection</h1>
+      </div>
+
+  <div class="quarto-title-meta">
+        <div>
+      <div class="quarto-title-meta-heading">Authors</div>
+      <div class="quarto-title-meta-contents">
+        <p class="author">James E. Pustejovsky</p><p class="author">Megha Joshi</p><p class="author">Martyna Citkowicz</p>
+      </div>
+    </div>
+        <div>
+          <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+                <p class="date">March 20, 2026</p>
+              </div>
+    </div>
+              <div class="software-links quarto-links">
+            <a href="https://github.com/jepusto/metaselection/" class="btn btn-outline-primary">
+        <i class="bi bi-github" aria-label="github"></i>
+        
+      </a>
+            </div>
+      </div>
+</header>
+
+
+<p>This package is under development.</p>
+<p>Selective reporting occurs when statistically significant, affirmative results are more likely to be reported (and therefore more likely to be available for meta-analysis) compared to null, non-affirmative results. Selective reporting is a major concern for research syntheses because it distorts the evidence base available for a meta-analysis, skewing meta-analytic averages toward favorable findings and misrepresenting the true population of effects. Failure to account for selective reporting can lead to inflated effect size estimates from meta-analysis and biased estimates of heterogeneity, making it difficult to draw accurate conclusions from a synthesis.</p>
+<p>There are many tools available already to investigate and correct for selective reporting. Widely used methods include: graphical diagnostics like funnel plots, tests and adjustments for funnel plot asymmetry like trim-and-fill, Egger’s regression, PET/PEESE, selection models, and&nbsp;p-value diagnostics. However, very few methods for investigating selective reporting can accommodate dependent effect sizes. This limitation poses a problem for meta-analyses in education, psychology and other social sciences, where dependent effects are a common feature of meta-analytic data.</p>
+<p>Dependent effect sizes occur when primary studies report results for multiple measures of an outcome construct, collect repeated measures of an outcome across multiple time-points, or involve comparisons between multiple intervention conditions. Ignoring the dependency of effect size estimates included in a meta-analysis leads to overly narrow confidence intervals, hypothesis tests with inflated type one error rates, and incorrect inferences. Pustejovsky, Citkowicz, and Joshi (2025) developed and examined methods for investigating and accounting for selective reporting in meta-analytic models that also account for dependent effect sizes. Their simulation results show that combining selection models with robust variance estimation to account for dependent effects reduces bias in the estimate of the overall effect size. Combining the selection models with cluster bootstrapping leads to confidence intervals with close-to-nominal coverage rates.</p>
+<p>The metaselection package provides an implementation of several meta-analytic selection models. The main function,&nbsp;<code>selection_model()</code>, fits step function and beta density selection models. To handle dependence in the effect size estimates, the function provides options to use cluster-robust (sandwich) variance estimation or cluster bootstrapping to assess uncertainty in the model parameter estimates.</p>
 
 
 
-
-
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1773982800000" data-listing-file-modified-sort="1774013930373" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="345">
-<div class="thumbnail"><a href="./software/metaselection/index.html" class="no-external">
-
-<img loading="lazy" src="./software/metaselection/featured.png" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./software/metaselection/index.html" class="no-external">metaselection</a>
-</h3>
-<div class="delink listing-description"><a href="./software/metaselection/index.html" class="no-external">
-This package is under development.
-</a></div>
-</div>
-<div class="metadata">
-<a href="./software/metaselection/index.html" class="no-external">
-<div class="listing-date">
-Mar 20, 2026
-</div>
-<div class="listing-author">
-James E. Pustejovsky, Megha Joshi, Martyna Citkowicz
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1721970000000" data-listing-file-modified-sort="1764538916724" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="272">
-<div class="thumbnail"><a href="./software/wildmeta/index.html" class="no-external">
-
-<img loading="lazy" src="./software/wildmeta/wildmeta_hex.png" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./software/wildmeta/index.html" class="no-external">wildmeta</a>
-</h3>
-<div class="delink listing-description"><a href="./software/wildmeta/index.html" class="no-external">
-Typical methods to conduct meta-analysis—pooling effect sizes or analyzing moderating effects with meta-regression—work under the assumption that the effect size estimates…
-</a></div>
-</div>
-<div class="metadata">
-<a href="./software/wildmeta/index.html" class="no-external">
-<div class="listing-date">
-Jul 26, 2024
-</div>
-<div class="listing-author">
-Megha Joshi, James E. Pustejovsky, Pierce Cappelli
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-listing-date-sort="1721883600000" data-listing-file-modified-sort="1774013884241" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="279">
-<div class="thumbnail"><a href="./software/simhelpers/index.html" class="no-external">
-
-<img loading="lazy" src="./software/simhelpers/workflow.png" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./software/simhelpers/index.html" class="no-external">simhelpers</a>
-</h3>
-<div class="delink listing-description"><a href="./software/simhelpers/index.html" class="no-external">
-Monte Carlo simulations are computer experiments designed to study the performance of statistical methods under known data-generating conditions (Morris, White, &amp; Crowther…
-</a></div>
-</div>
-<div class="metadata">
-<a href="./software/simhelpers/index.html" class="no-external">
-<div class="listing-date">
-Jul 25, 2024
-</div>
-<div class="listing-author">
-Megha Joshi, James E. Pustejovsky
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-listing-date-sort="1638252000000" data-listing-file-modified-sort="1774014026570" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="195">
-<div class="thumbnail"><a href="./software/evidence_gap_map_shiny/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./software/evidence_gap_map_shiny/index.html" class="no-external">Evidence Gap Maps Shiny App</a>
-</h3>
-<div class="delink listing-description"><a href="./software/evidence_gap_map_shiny/index.html" class="no-external">
-Evidence Gap Maps (EGMs) provide a structured visual framework designed to identify areas where research has been conducted, and where research has not been conducted.…
-</a></div>
-</div>
-<div class="metadata">
-<a href="./software/evidence_gap_map_shiny/index.html" class="no-external">
-<div class="listing-date">
-Nov 30, 2021
-</div>
-<div class="listing-author">
-Megha Joshi
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
