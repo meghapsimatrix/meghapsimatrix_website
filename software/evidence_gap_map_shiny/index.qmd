@@ -5,6 +5,7 @@ author:
     given: Megha
     family: Joshi
 date: 2021-11-30
+image: figure3.jpeg
 links:
 - text: Website
   url: https://airshinyapps.shinyapps.io/mosaic_egm/

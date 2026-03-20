@@ -1,0 +1,40 @@
+---
+title: "Matching Methods for Multisite Cluster Observational Designs: Methodological and Practical Considerations"
+author: 
+  - name:
+      given: Martyna
+      family: Citkowicz
+  - name: 
+      given: Jordan 
+      family: Rickles
+  - name: 
+      given: Megha 
+      family: Joshi
+  - name: 
+      given: Mark
+      family: Lachowicz
+  - name: 
+      given: Robert
+      family: Nathenson
+  - name: 
+      given: Kyle
+      family: Neering
+date: 2025-08-07
+categories:
+- causal inference
+- simulation
+- propensity score methods
+- multilevel 
+citation: 
+  type: article-journal
+  container-title: Journal of Research on Educational Effectiveness
+  doi: 10.1080/19345747.2025.2528641
+  url: https://doi.org/10.1080/19345747.2025.2528641
+  page: 1-22
+links:
+- text: Journal
+  url: https://doi.org/10.1080/19345747.2025.2528641
+  icon: newspaper
+---
+
+When randomization is not feasible, education researchers frequently turn to propensity score matching to identify a comparison group that is similar to the treatment group based on observed characteristics. However, the multilevel nature of most education data can complicate the matching process. While some methods exist for matching in two-level multisite and clustered designs, no method currently exists for a three-level multisite cluster design. In this article, we extend existing matching methods to a three-level design where, for example, the goal is to examine the effects of a teacher professional development or training program on student outcomes. In this scenario, students (units) are nested within teachers (cluster) who are nested within schools (sites) and the treatment is at the cluster level (teachers). We demonstrate the methods on a real-world dataset and assess their performance under plausible sample size conditions using a simulation study. The results show that no one method stands out and the choice of matching method depends on covariate balance tradeoffs at different levels (units, clusters, or sites) and sample size considerations.
