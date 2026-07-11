@@ -14,7 +14,7 @@ about:
     - text: "{{< ai google-scholar >}}"
       href: https://scholar.google.com/citations?user=D8QFfGsAAAAJ&hl=en
     - icon: linkedin
-      href: https://www.linkedin.com/in/megha-joshi-64472a102
+      href: https://www.linkedin.com/in/megha-joshi-phd-64472a102/
 toc: false
 
 execute: 

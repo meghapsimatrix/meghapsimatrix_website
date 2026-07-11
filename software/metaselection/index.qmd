@@ -14,7 +14,9 @@ date: 2026-03-20
 image: featured.png
 links:
 - icon: github
-  url: https://github.com/jepusto/metaselection/
+  url: https://jepusto.github.io/metaselection/index.html
+- text: Website
+  url: https://jepusto.github.io/metaselection/index.html
 ---
 
 This package is under development.
