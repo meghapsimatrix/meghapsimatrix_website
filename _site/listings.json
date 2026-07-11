@@ -2,6 +2,7 @@
   {
     "listing": "/posts.html",
     "items": [
+      "/posts/uncertainties/index.html",
       "/posts/ipd_meta/index.html",
       "/posts/I_squared/index.html",
       "/posts/CI/index.html",
@@ -28,6 +29,8 @@
   {
     "listing": "/publications.html",
     "items": [
+      "/publications/selection_models_step/index.html",
+      "/publications/selection_models_beta/index.html",
       "/publications/multilevel/index.html",
       "/publications/cwb/index.html",
       "/publications/missing_data/index.html",

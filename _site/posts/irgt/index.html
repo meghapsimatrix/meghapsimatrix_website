@@ -6,15 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Martyna Citkowicz">
-<meta name="author" content="Jordan Rickles">
 <meta name="author" content="Megha Joshi">
-<meta name="author" content="Mark Lachowicz">
-<meta name="author" content="Robert Nathenson">
-<meta name="author" content="Kyle Neering">
-<meta name="dcterms.date" content="2025-08-07">
+<meta name="dcterms.date" content="2025-03-20">
 
-<title>Matching methods for multisite cluster observational designs: Methodological and practical considerations – Megha Joshi</title>
+<title>Individually Randomized Grouped Treatment Trials – Megha Joshi</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -27,7 +22,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -78,32 +93,15 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="../../styles.css">
-<meta property="og:title" content="Matching methods for multisite cluster observational designs: Methodological and practical considerations – Megha Joshi">
+<meta property="og:title" content="Individually Randomized Grouped Treatment Trials – Megha Joshi">
 <meta property="og:description" content="">
 <meta property="og:site_name" content="Megha Joshi">
-<meta name="citation_title" content="Matching methods for multisite cluster observational designs: Methodological and practical considerations">
-<meta name="citation_author" content="Martyna Citkowicz">
-<meta name="citation_author" content="Jordan Rickles">
-<meta name="citation_author" content="Megha Joshi">
-<meta name="citation_author" content="Mark Lachowicz">
-<meta name="citation_author" content="Robert Nathenson">
-<meta name="citation_author" content="Kyle Neering">
-<meta name="citation_publication_date" content="2025-08-07">
-<meta name="citation_cover_date" content="2025-08-07">
-<meta name="citation_year" content="2025">
-<meta name="citation_online_date" content="2025-08-07">
-<meta name="citation_fulltext_html_url" content="https://doi.org/10.1080/19345747.2025.2528641">
-<meta name="citation_doi" content="10.1080/19345747.2025.2528641">
-<meta name="citation_language" content="en">
-<meta name="citation_firstpage" content="1">
-<meta name="citation_lastpage" content="22">
-<meta name="citation_journal_title" content="Journal of Research on Educational Effectiveness">
 </head>
 
 <body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -158,68 +156,115 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Individually Randomized Grouped Treatment Trials</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">causal inference</div>
+                <div class="quarto-category">experimental design</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Megha Joshi </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 20, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#estimand" id="toc-estimand" class="nav-link active" data-scroll-target="#estimand">Estimand</a></li>
+  <li><a href="#independence-assumption" id="toc-independence-assumption" class="nav-link" data-scroll-target="#independence-assumption">Independence Assumption</a>
+  <ul class="collapse">
+  <li><a href="#clustering-in-the-different-treatment-conditions" id="toc-clustering-in-the-different-treatment-conditions" class="nav-link" data-scroll-target="#clustering-in-the-different-treatment-conditions">Clustering in the Different Treatment Conditions</a></li>
+  <li><a href="#cluster-sizes" id="toc-cluster-sizes" class="nav-link" data-scroll-target="#cluster-sizes">Cluster Sizes</a></li>
+  <li><a href="#sutva" id="toc-sutva" class="nav-link" data-scroll-target="#sutva">SUTVA</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  
-  <div class="quarto-title column-body">
-    <h1 class="title">Matching methods for multisite cluster observational designs: Methodological and practical considerations</h1>
-      </div>
-
-  <div class="quarto-title-meta">
-        <div>
-      <div class="quarto-title-meta-heading">Authors</div>
-      <div class="quarto-title-meta-contents">
-        <p class="author">Martyna Citkowicz</p><p class="author">Jordan Rickles</p><p class="author">Megha Joshi</p><p class="author">Mark Lachowicz</p><p class="author">Robert Nathenson</p><p class="author">Kyle Neering</p>
-      </div>
-    </div>
-        <div>
-          <div class="quarto-title-meta-heading">Published</div>
-      <div class="quarto-title-meta-contents">
-                <p class="date">August 7, 2025</p>
-              </div>
-    </div>
-              <div class="software-links quarto-links">
-            <a href="https://doi.org/10.1080/19345747.2025.2528641" class="btn btn-outline-primary">
-        <i class="bi bi-newspaper" aria-label="newspaper"></i>
-        Journal
-      </a>
-            </div>
-      </div>
-</header>
 
 
-<p>When randomization is not feasible, education researchers frequently turn to propensity score matching to identify a comparison group that is similar to the treatment group based on observed characteristics. However, the multilevel nature of most education data can complicate the matching process. While some methods exist for matching in two-level multisite and clustered designs, no method currently exists for a three-level multisite cluster design. In this article, we extend existing matching methods to a three-level design where, for example, the goal is to examine the effects of a teacher professional development or training program on student outcomes. In this scenario, students (units) are nested within teachers (cluster) who are nested within schools (sites) and the treatment is at the cluster level (teachers). We demonstrate the methods on a real-world dataset and assess their performance under plausible sample size conditions using a simulation study. The results show that no one method stands out and the choice of matching method depends on covariate balance tradeoffs at different levels (units, clusters, or sites) and sample size considerations.</p>
+<p>I have been working in the program evaluation / causal inference space for ~ 9 years. Recently though, I came across an experimental test design that I strangely hadn’t thought much about before.</p>
+<p>Here is an example of this design:</p>
+<p>Students are randomized to get some tutoring vs another type of tutoring (Tutoring A vs Tutoring B). Randomization happens at the student level. However, tutoring is administered in groups by tutors who have different skills that are aligned with each type of tutoring. Ten tutors with advanced skills will be administering Tutoring A and 7 different tutors with not as advanced skills will be administering Tutoring B. Each tutor under condition A or B will be teaching say 20 students. The point of the study is to compare performances of students who receive Tutoring A versus Tutoring B.</p>
+<p>Even though students are individually randomized, this is not a <strong>simple individually randomized test</strong> because students are nested in tutors and receive treatment in clusters. Students taught by the same tutors will tend to have similar outcomes (e.g., scores on a test) than students taught by different tutors.</p>
+<p>But it is also NOT a <strong>cluster randomized trial</strong> (CRT), which I am much more familiar with. In CRTs, randomization happens at the cluster level. Tutors are randomized into treatment or comparison conditions.</p>
+<p>The type of design that I am dealing with is apparently called <strong>Individually Randomized Grouped Treatment trials (IGRT)</strong>. I found a couple of articles and also reached out to my forever advisor James Pustejovsky for his thoughts about this design <span class="citation" data-cites="pals2008individually roberts2005design">(<a href="#ref-pals2008individually" role="doc-biblioref">Pals et al., 2008</a>; <a href="#ref-roberts2005design" role="doc-biblioref">Roberts &amp; Roberts, 2005</a>)</span>. Following is a summary of what I learned. For the sake of this post, let’s assume a two-arm randomized trial design.</p>
+<section id="estimand" class="level2">
+<h2 class="anchored" data-anchor-id="estimand">Estimand</h2>
+<p>CRT - cluster average treatment effect vs average treatment effect</p>
+</section>
+<section id="independence-assumption" class="level2">
+<h2 class="anchored" data-anchor-id="independence-assumption">Independence Assumption</h2>
+<p>When we deal with a simple individually randomized two-group comparison, we typically use t-test or linear regression to estimate the treatment effect. To make inferences from these models, we have to assume that the errors are independent. The grouping or clustering of units in CRTs and IGRTs violates that assumption. Students taught by the same tutor will likely have similar outcomes compared to students taught by different tutors. Not accounting for such dependence or between-cluster vartiation can lead to underestimated standard errors and, thus, Type 1 error inflation and inappropriate confidence intervals.</p>
+<p>When we are dealing with IGRTs there are a few nuances that we need to consider when accounting for clustering.</p>
+<section id="clustering-in-the-different-treatment-conditions" class="level3">
+<h3 class="anchored" data-anchor-id="clustering-in-the-different-treatment-conditions">Clustering in the Different Treatment Conditions</h3>
+<p>In cluster randomized tests, both treatment and control groups will contain clusters as clusters are randomized into the treatment conditions. In the IRGT example I described above, both treatment and control group have clustering. BUT, there is another version of IRGT where we can have students who get assigned to treatment get tutoring by different tutors whereas students who get assigned to control do not receive any tutoring. Hence, clustering only happens in the treatment group.</p>
+<p>The actual extent of clustering can also differ between the two conditions in IGRT in a way that it doesn’t in CRTs <span class="citation" data-cites="roberts2005design">(<a href="#ref-roberts2005design" role="doc-biblioref">Roberts &amp; Roberts, 2005</a>)</span>. The extent of clustering is measured with a metric called the design effect, which, for CRTs and IGRTs, is based on cluster size as well as the intra-cluster coefficient (ICC). The ICC is defined as the proportion of variance in the outcome that can be explained by the groups or clusters <span class="citation" data-cites="pals2008individually">(<a href="#ref-pals2008individually" role="doc-biblioref">Pals et al., 2008</a>)</span>.</p>
+</section>
+<section id="cluster-sizes" class="level3">
+<h3 class="anchored" data-anchor-id="cluster-sizes">Cluster Sizes</h3>
+<p>In CRTs, if randomization goes as planned, the treatment and control conditions should have roughly similar size clusters. However, we cannot expect the same in IGRT.</p>
+<p>Why does it matter?</p>
+<ul>
+<li>Estimand - aggregating up is going to tell a whole different story</li>
+</ul>
+<p>Moreover, ICCs can also differ between the treatment and control conditions in IGRTs. As I mentioned above, we can have a design where there is only clustering in the treatment group and not in the control group. So, ICC would only apply to the treatment group. Even in designs where clustering is present in both treatment and control groups, we can have situations where the effect of clustering is stronger in one group compared to the other. Going back to our tutoring example,</p>
+<p>Tutors are assigned based on availability/ location. Then the groups will be even more different.</p>
+<p>Treatment differences</p>
+</section>
+<section id="sutva" class="level3">
+<h3 class="anchored" data-anchor-id="sutva">SUTVA</h3>
+<p>Like in cluster randomized trials, we do need to think about possible of multiple treatments being deployed.</p>
+<p>In cluster randomized trials, people select themselves into groups. In IRGT, individuals are assigned to groups. They can be assigned randomly or more realistically units can get assigned to clusters based on location, time, availability (for example, of tutors).</p>
+</section>
+</section>
+<section id="references" class="level1">
 
 
 
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@article{citkowicz2025,
-  author = {Citkowicz, Martyna and Rickles, Jordan and Joshi, Megha and
-    Lachowicz, Mark and Nathenson, Robert and Neering, Kyle},
-  title = {Matching Methods for Multisite Cluster Observational Designs:
-    {Methodological} and Practical Considerations},
-  journal = {Journal of Research on Educational Effectiveness},
-  pages = {1-22},
-  date = {2025-08-07},
-  url = {https://doi.org/10.1080/19345747.2025.2528641},
-  doi = {10.1080/19345747.2025.2528641},
-  langid = {en}
-}
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-citkowicz2025" class="csl-entry quarto-appendix-citeas" role="listitem">
-Citkowicz, M., Rickles, J., Joshi, M., Lachowicz, M., Nathenson, R.,
-&amp; Neering, K. (2025). Matching methods for multisite cluster
-observational designs: Methodological and practical considerations.
-<em>Journal of Research on Educational Effectiveness</em>, 1–22. <a href="https://doi.org/10.1080/19345747.2025.2528641">https://doi.org/10.1080/19345747.2025.2528641</a>
-</div></div></section></div></main> <!-- /main -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-pals2008individually" class="csl-entry" role="listitem">
+Pals, S. L., Murray, D. M., Alfano, C. M., Shadish, W. R., Hannan, P. J., &amp; Baker, W. L. (2008). Individually randomized group treatment trials: A critical appraisal of frequently used design and analytic approaches. <em>American Journal of Public Health</em>, <em>98</em>(8), 1418–1424.
+</div>
+<div id="ref-roberts2005design" class="csl-entry" role="listitem">
+Roberts, C., &amp; Roberts, S. A. (2005). Design and analysis of clinical trials with clustering effects due to treatment. <em>Clinical Trials</em>, <em>2</em>(2), 152–162.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

@@ -103,5 +103,17 @@
   },
   "publications/multilevel/index.qmd": {
     "index.html": "ee607a42"
+  },
+  "posts/irgt/index.qmd": {
+    "index.html": "8404b757"
+  },
+  "posts/uncertainties/index.qmd": {
+    "index.html": "98ef31eb"
+  },
+  "publications/selection_models_step/index.qmd": {
+    "index.html": "252e5edb"
+  },
+  "publications/selection_models_beta/index.qmd": {
+    "index.html": "8f61adbc"
   }
 }

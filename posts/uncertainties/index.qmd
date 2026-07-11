@@ -1,0 +1,39 @@
+---
+title: "Uncertainties in Testing"
+author: "Megha Joshi"
+date: 2026-07-12
+categories: ["statistics", "test design", "ab testing", "experimental design", "uncertainties"]
+draft: false
+---
+
+I have been trying to think of ways to explain how even if an estimate of effect from an AB test is statistically significant, that **does not mean** that the effect itself is not biased and that it **does not mean** that he results we observed in one sample are generalizable to broader population or to future time. I have also been trying to think of ways to explain the distinction between randomization and random sampling. Randomizing units to test or control does not take care of seasonality and other external validity issues. I started writing about different aspects of testing with a running example and then got sidetracked 5 billion times with particularities of the example. 😁
+
+Then I read [this post](https://www.linkedin.com/feed/update/urn:li:activity:7478114081292349440/) on Linkedin by James G. Scott and the [attached blog](https://jgscott.github.io/teaching_essays/uncertainty-origin.html) about how James teaches about uncertainty in introductory statistics class. I got quite 'the light bulb going off in the head' moment about how to organize all the things I have been struggling to explain using the format presented in the blog. 💡Insipired by the list of uncertainties in James's blog, I created my own list, editing and adding to what is already there in the original blog. Note: this list is particular to tests involving causal inference.
+
+**Internal validity**
+
+-   Uncertainty about whether the effect/ lift we observed is ***the causal effect*** of the test experience on the outcome or if there is any other factors (confounding variables) that may explain the change in the outcome.
+
+    -   This is heavily dependent on the test designs and the assumptions we have to make to infer causality.
+
+**External validity**
+
+-   Uncertainty with regards to whether the findings we observe in our sample will generalize to the wider target population.
+
+    -   Random sampling can help with this but that is not always feasible. We can compare the composition of the sample to that of the broader population
+
+-   Similarly, uncertainty regarding if the findings we observed at this point in time when we ran the test will generalize to future times. Is there seasonality in the effects? Do the effects stay stable or decline over time? And perhaps even what happens to the lift once we are done with the controlled setting of testing? Does it interact with anything else?
+
+**Randomness**
+
+-   Uncertainty about if our effect is real or just luck. Just out of dumb luck, do we have a false positive? Is the magnitude of the effect that we observed higher than it actually is?
+
+-   Uncertainty regarding how much the lift will vary if we were to run this test on a slightly different sample of eligible people. Standard errors, confidence intervals, p-values deal with ***this*** uncertainty.
+
+**Measurement error**
+
+-   Uncertainty around whether we defined and measured variables correctly.
+
+    -   Consult with psychometricians 🙃
+
+Just looking at whether an estimate of effect is statistically significant does not tell you anything about internal or external validity or measurement error. And, not really even about whether what you see is just dumb luck, because we don't know what the truth is oftentimes. We just have to make assumptions.

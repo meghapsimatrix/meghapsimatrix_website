@@ -1,5 +1,5 @@
 ---
-title: "Matching Methods for Multisite Cluster Observational Designs: Methodological and Practical Considerations"
+title: "Matching methods for multisite cluster observational designs: Methodological and practical considerations"
 author: 
   - name:
       given: Martyna

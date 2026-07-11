@@ -6,15 +6,12 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="James E. Pustejovsky">
 <meta name="author" content="Martyna Citkowicz">
-<meta name="author" content="Jordan Rickles">
 <meta name="author" content="Megha Joshi">
-<meta name="author" content="Mark Lachowicz">
-<meta name="author" content="Robert Nathenson">
-<meta name="author" content="Kyle Neering">
-<meta name="dcterms.date" content="2025-08-07">
+<meta name="dcterms.date" content="2026-07-11">
 
-<title>Matching methods for multisite cluster observational designs: Methodological and practical considerations – Megha Joshi</title>
+<title>Estimation and inference for step-function selection models in meta-analysis with dependent effects – Megha Joshi</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -78,26 +75,20 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="../../styles.css">
-<meta property="og:title" content="Matching methods for multisite cluster observational designs: Methodological and practical considerations – Megha Joshi">
+<meta property="og:title" content="Estimation and inference for step-function selection models in meta-analysis with dependent effects – Megha Joshi">
 <meta property="og:description" content="">
 <meta property="og:site_name" content="Megha Joshi">
-<meta name="citation_title" content="Matching methods for multisite cluster observational designs: Methodological and practical considerations">
+<meta name="citation_title" content="Estimation and inference for step-function selection models in meta-analysis with dependent effects">
+<meta name="citation_author" content="James E. Pustejovsky">
 <meta name="citation_author" content="Martyna Citkowicz">
-<meta name="citation_author" content="Jordan Rickles">
 <meta name="citation_author" content="Megha Joshi">
-<meta name="citation_author" content="Mark Lachowicz">
-<meta name="citation_author" content="Robert Nathenson">
-<meta name="citation_author" content="Kyle Neering">
-<meta name="citation_publication_date" content="2025-08-07">
-<meta name="citation_cover_date" content="2025-08-07">
-<meta name="citation_year" content="2025">
-<meta name="citation_online_date" content="2025-08-07">
-<meta name="citation_fulltext_html_url" content="https://doi.org/10.1080/19345747.2025.2528641">
-<meta name="citation_doi" content="10.1080/19345747.2025.2528641">
+<meta name="citation_publication_date" content="2026-07-11">
+<meta name="citation_cover_date" content="2026-07-11">
+<meta name="citation_year" content="2026">
+<meta name="citation_online_date" content="2026-07-11">
+<meta name="citation_fulltext_html_url" content="https://osf.io/preprints/metaarxiv/qg5x6_v4">
+<meta name="citation_doi" content="10.31222/osf.io/qg5x6_v3">
 <meta name="citation_language" content="en">
-<meta name="citation_firstpage" content="1">
-<meta name="citation_lastpage" content="22">
-<meta name="citation_journal_title" content="Journal of Research on Educational Effectiveness">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -172,53 +163,63 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   
   <div class="quarto-title column-body">
-    <h1 class="title">Matching methods for multisite cluster observational designs: Methodological and practical considerations</h1>
+    <h1 class="title">Estimation and inference for step-function selection models in meta-analysis with dependent effects</h1>
       </div>
 
   <div class="quarto-title-meta">
         <div>
       <div class="quarto-title-meta-heading">Authors</div>
       <div class="quarto-title-meta-contents">
-        <p class="author">Martyna Citkowicz</p><p class="author">Jordan Rickles</p><p class="author">Megha Joshi</p><p class="author">Mark Lachowicz</p><p class="author">Robert Nathenson</p><p class="author">Kyle Neering</p>
+        <p class="author">James E. Pustejovsky</p><p class="author">Martyna Citkowicz</p><p class="author">Megha Joshi</p>
       </div>
     </div>
         <div>
           <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-                <p class="date">August 7, 2025</p>
+                <p class="date">July 11, 2026</p>
               </div>
     </div>
               <div class="software-links quarto-links">
-            <a href="https://doi.org/10.1080/19345747.2025.2528641" class="btn btn-outline-primary">
-        <i class="bi bi-newspaper" aria-label="newspaper"></i>
-        Journal
+            <a href="https://osf.io/preprints/metaarxiv/qg5x6_v4" class="btn btn-outline-primary">
+        <i class="bi bi-unlock-fill" aria-label="unlock-fill"></i>
+        Pre-Print
+      </a>
+            <a href="https://osf.io/v25rx/" class="btn btn-outline-primary">
+        <i class="bi bi-code-slash" aria-label="code-slash"></i>
+        Code
+      </a>
+            <a href="https://osf.io/v25rx/" class="btn btn-outline-primary">
+        <i class="bi bi-table" aria-label="table"></i>
+        Data
+      </a>
+            <a href="https://jepusto.github.io/metaselection/index.html" class="btn btn-outline-primary">
+        <i class="bi bi-box2" aria-label="box2"></i>
+        R package
       </a>
             </div>
       </div>
 </header>
 
 
-<p>When randomization is not feasible, education researchers frequently turn to propensity score matching to identify a comparison group that is similar to the treatment group based on observed characteristics. However, the multilevel nature of most education data can complicate the matching process. While some methods exist for matching in two-level multisite and clustered designs, no method currently exists for a three-level multisite cluster design. In this article, we extend existing matching methods to a three-level design where, for example, the goal is to examine the effects of a teacher professional development or training program on student outcomes. In this scenario, students (units) are nested within teachers (cluster) who are nested within schools (sites) and the treatment is at the cluster level (teachers). We demonstrate the methods on a real-world dataset and assess their performance under plausible sample size conditions using a simulation study. The results show that no one method stands out and the choice of matching method depends on covariate balance tradeoffs at different levels (units, clusters, or sites) and sample size considerations.</p>
+<p>Meta-analyses in social science fields face multiple methodological challenges arising from how primary research studies are designed and reported. One challenge is that many primary studies report multiple relevant effect size estimates, leading to a data structure with dependent observations. Another is selective reporting bias, which arises when the availability of study findings is influenced by the statistical significance of results. Although many selective reporting diagnostics and bias-correction methods have been proposed, few are suitable for meta-analyses involving dependent effect sizes. Among available methods, step-function selection models are conceptually appealing and have shown promise in previous simulations, but tend to understate uncertainty in parameter estimates if dependent effects are ignored. We study methods for estimating step-function models from data involving dependent effect sizes, focusing specifically on estimating parameters of the marginal distribution of effect sizes and accounting for dependence using cluster-robust variance estimation or bootstrap resampling. We describe two estimation strategies, demonstrate them by re-analyzing data from a previous synthesis on ego depletion effects, and evaluate their performance through an extensive simulation study under both univariate and multivariate selection processes. Simulation findings indicate that selection models provide low-bias estimates of average effect size and clustered bootstrap confidence intervals provide acceptable coverage levels for meta-analyses with at least 30 studies. Although unadjusted estimates are more efficient when selective reporting is absent or minimal, the proposed methods provide a robust and useful approach for evaluating the potential biases arising when selective reporting is present in meta-analyses with dependent effects.</p>
+<p>Article has been accepted at Research Synthesis Methods, pending publication.</p>
 
 
 
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@article{citkowicz2025,
-  author = {Citkowicz, Martyna and Rickles, Jordan and Joshi, Megha and
-    Lachowicz, Mark and Nathenson, Robert and Neering, Kyle},
-  title = {Matching Methods for Multisite Cluster Observational Designs:
-    {Methodological} and Practical Considerations},
-  journal = {Journal of Research on Educational Effectiveness},
-  pages = {1-22},
-  date = {2025-08-07},
-  url = {https://doi.org/10.1080/19345747.2025.2528641},
-  doi = {10.1080/19345747.2025.2528641},
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@misc{pustejovsky2026,
+  author = {Pustejovsky, James E. and Citkowicz, Martyna and Joshi,
+    Megha},
+  title = {Estimation and Inference for Step-Function Selection Models
+    in Meta-Analysis with Dependent Effects},
+  date = {2026-07-11},
+  url = {https://osf.io/preprints/metaarxiv/qg5x6_v4},
+  doi = {10.31222/osf.io/qg5x6_v3},
   langid = {en}
 }
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-citkowicz2025" class="csl-entry quarto-appendix-citeas" role="listitem">
-Citkowicz, M., Rickles, J., Joshi, M., Lachowicz, M., Nathenson, R.,
-&amp; Neering, K. (2025). Matching methods for multisite cluster
-observational designs: Methodological and practical considerations.
-<em>Journal of Research on Educational Effectiveness</em>, 1–22. <a href="https://doi.org/10.1080/19345747.2025.2528641">https://doi.org/10.1080/19345747.2025.2528641</a>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-pustejovsky2026" class="csl-entry quarto-appendix-citeas" role="listitem">
+Pustejovsky, J. E., Citkowicz, M., &amp; Joshi, M. (2026, July 11).
+<em>Estimation and inference for step-function selection models in
+meta-analysis with dependent effects</em>. <a href="https://doi.org/10.31222/osf.io/qg5x6_v3">https://doi.org/10.31222/osf.io/qg5x6_v3</a>
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

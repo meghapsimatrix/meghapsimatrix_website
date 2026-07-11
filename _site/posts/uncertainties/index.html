@@ -6,15 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Martyna Citkowicz">
-<meta name="author" content="Jordan Rickles">
 <meta name="author" content="Megha Joshi">
-<meta name="author" content="Mark Lachowicz">
-<meta name="author" content="Robert Nathenson">
-<meta name="author" content="Kyle Neering">
-<meta name="dcterms.date" content="2025-08-07">
+<meta name="dcterms.date" content="2026-07-12">
 
-<title>Matching methods for multisite cluster observational designs: Methodological and practical considerations – Megha Joshi</title>
+<title>Uncertainties in Testing – Megha Joshi</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -78,32 +73,15 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="../../styles.css">
-<meta property="og:title" content="Matching methods for multisite cluster observational designs: Methodological and practical considerations – Megha Joshi">
+<meta property="og:title" content="Uncertainties in Testing – Megha Joshi">
 <meta property="og:description" content="">
 <meta property="og:site_name" content="Megha Joshi">
-<meta name="citation_title" content="Matching methods for multisite cluster observational designs: Methodological and practical considerations">
-<meta name="citation_author" content="Martyna Citkowicz">
-<meta name="citation_author" content="Jordan Rickles">
-<meta name="citation_author" content="Megha Joshi">
-<meta name="citation_author" content="Mark Lachowicz">
-<meta name="citation_author" content="Robert Nathenson">
-<meta name="citation_author" content="Kyle Neering">
-<meta name="citation_publication_date" content="2025-08-07">
-<meta name="citation_cover_date" content="2025-08-07">
-<meta name="citation_year" content="2025">
-<meta name="citation_online_date" content="2025-08-07">
-<meta name="citation_fulltext_html_url" content="https://doi.org/10.1080/19345747.2025.2528641">
-<meta name="citation_doi" content="10.1080/19345747.2025.2528641">
-<meta name="citation_language" content="en">
-<meta name="citation_firstpage" content="1">
-<meta name="citation_lastpage" content="22">
-<meta name="citation_journal_title" content="Journal of Research on Educational Effectiveness">
 </head>
 
 <body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -158,68 +136,88 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Uncertainties in Testing</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">statistics</div>
+                <div class="quarto-category">test design</div>
+                <div class="quarto-category">ab testing</div>
+                <div class="quarto-category">experimental design</div>
+                <div class="quarto-category">uncertainties</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Megha Joshi </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">July 12, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
         
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  
-  <div class="quarto-title column-body">
-    <h1 class="title">Matching methods for multisite cluster observational designs: Methodological and practical considerations</h1>
-      </div>
-
-  <div class="quarto-title-meta">
-        <div>
-      <div class="quarto-title-meta-heading">Authors</div>
-      <div class="quarto-title-meta-contents">
-        <p class="author">Martyna Citkowicz</p><p class="author">Jordan Rickles</p><p class="author">Megha Joshi</p><p class="author">Mark Lachowicz</p><p class="author">Robert Nathenson</p><p class="author">Kyle Neering</p>
-      </div>
-    </div>
-        <div>
-          <div class="quarto-title-meta-heading">Published</div>
-      <div class="quarto-title-meta-contents">
-                <p class="date">August 7, 2025</p>
-              </div>
-    </div>
-              <div class="software-links quarto-links">
-            <a href="https://doi.org/10.1080/19345747.2025.2528641" class="btn btn-outline-primary">
-        <i class="bi bi-newspaper" aria-label="newspaper"></i>
-        Journal
-      </a>
-            </div>
-      </div>
-</header>
 
 
-<p>When randomization is not feasible, education researchers frequently turn to propensity score matching to identify a comparison group that is similar to the treatment group based on observed characteristics. However, the multilevel nature of most education data can complicate the matching process. While some methods exist for matching in two-level multisite and clustered designs, no method currently exists for a three-level multisite cluster design. In this article, we extend existing matching methods to a three-level design where, for example, the goal is to examine the effects of a teacher professional development or training program on student outcomes. In this scenario, students (units) are nested within teachers (cluster) who are nested within schools (sites) and the treatment is at the cluster level (teachers). We demonstrate the methods on a real-world dataset and assess their performance under plausible sample size conditions using a simulation study. The results show that no one method stands out and the choice of matching method depends on covariate balance tradeoffs at different levels (units, clusters, or sites) and sample size considerations.</p>
+<p>I have been trying to think of ways to explain how even if an estimate of effect from an AB test is statistically significant, that <strong>does not mean</strong> that the effect itself is not biased and that it <strong>does not mean</strong> that he results we observed in one sample are generalizable to broader population or to future time. I have also been trying to think of ways to explain the distinction between randomization and random sampling. Randomizing units to test or control does not take care of seasonality and other external validity issues. I started writing about different aspects of testing with a running example and then got sidetracked 5 billion times with particularities of the example. 😁</p>
+<p>Then I read <a href="https://www.linkedin.com/feed/update/urn:li:activity:7478114081292349440/">this post</a> on Linkedin by James G. Scott and the <a href="https://jgscott.github.io/teaching_essays/uncertainty-origin.html">attached blog</a> about how James teaches about uncertainty in introductory statistics class. I got quite ‘the light bulb going off in the head’ moment about how to organize all the things I have been struggling to explain using the format presented in the blog. 💡Insipired by the list of uncertainties in James’s blog, I created my own list, editing and adding to what is already there in the original blog. Note: this list is particular to tests involving causal inference.</p>
+<p><strong>Internal validity</strong></p>
+<ul>
+<li><p>Uncertainty about whether the effect/ lift we observed is <strong><em>the causal effect</em></strong> of the test experience on the outcome or if there is any other factors (confounding variables) that may explain the change in the outcome.</p>
+<ul>
+<li>This is heavily dependent on the test designs and the assumptions we have to make to infer causality.</li>
+</ul></li>
+</ul>
+<p><strong>External validity</strong></p>
+<ul>
+<li><p>Uncertainty with regards to whether the findings we observe in our sample will generalize to the wider target population.</p>
+<ul>
+<li>Random sampling can help with this but that is not always feasible. We can compare the composition of the sample to that of the broader population</li>
+</ul></li>
+<li><p>Similarly, uncertainty regarding if the findings we observed at this point in time when we ran the test will generalize to future times. Is there seasonality in the effects? Do the effects stay stable or decline over time? And perhaps even what happens to the lift once we are done with the controlled setting of testing? Does it interact with anything else?</p></li>
+</ul>
+<p><strong>Randomness</strong></p>
+<ul>
+<li><p>Uncertainty about if our effect is real or just luck. Just out of dumb luck, do we have a false positive? Is the magnitude of the effect that we observed higher than it actually is?</p></li>
+<li><p>Uncertainty regarding how much the lift will vary if we were to run this test on a slightly different sample of eligible people. Standard errors, confidence intervals, p-values deal with <strong><em>this</em></strong> uncertainty.</p></li>
+</ul>
+<p><strong>Measurement error</strong></p>
+<ul>
+<li><p>Uncertainty around whether we defined and measured variables correctly.</p>
+<ul>
+<li>Consult with psychometricians 🙃</li>
+</ul></li>
+</ul>
+<p>Just looking at whether an estimate of effect is statistically significant does not tell you anything about internal or external validity or measurement error. And, not really even about whether what you see is just dumb luck, because we don’t know what the truth is oftentimes. We just have to make assumptions.</p>
 
 
 
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@article{citkowicz2025,
-  author = {Citkowicz, Martyna and Rickles, Jordan and Joshi, Megha and
-    Lachowicz, Mark and Nathenson, Robert and Neering, Kyle},
-  title = {Matching Methods for Multisite Cluster Observational Designs:
-    {Methodological} and Practical Considerations},
-  journal = {Journal of Research on Educational Effectiveness},
-  pages = {1-22},
-  date = {2025-08-07},
-  url = {https://doi.org/10.1080/19345747.2025.2528641},
-  doi = {10.1080/19345747.2025.2528641},
-  langid = {en}
-}
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-citkowicz2025" class="csl-entry quarto-appendix-citeas" role="listitem">
-Citkowicz, M., Rickles, J., Joshi, M., Lachowicz, M., Nathenson, R.,
-&amp; Neering, K. (2025). Matching methods for multisite cluster
-observational designs: Methodological and practical considerations.
-<em>Journal of Research on Educational Effectiveness</em>, 1–22. <a href="https://doi.org/10.1080/19345747.2025.2528641">https://doi.org/10.1080/19345747.2025.2528641</a>
-</div></div></section></div></main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
