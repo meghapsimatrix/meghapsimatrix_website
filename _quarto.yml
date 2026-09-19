@@ -27,9 +27,10 @@ website:
 format:
   html:
     theme: darkly
-    css: styles.css
-    toc: true
-    
+    linkcolor: "#9ea6fb"
+
+
+
 execute:
   freeze: auto
 
