@@ -2,6 +2,7 @@
   {
     "listing": "/posts.html",
     "items": [
+      "/posts/potential_outcomes/index.html",
       "/posts/uncertainties/index.html",
       "/posts/ipd_meta/index.html",
       "/posts/I_squared/index.html",

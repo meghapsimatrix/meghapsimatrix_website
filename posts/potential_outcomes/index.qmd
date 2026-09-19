@@ -1,0 +1,108 @@
+---
+title: "Potential Outcomes and Missing Data"
+author: "Megha Joshi"
+date: 2026-09-19
+bibliography: references.bib
+categories: ["ab testing", "causal inference", "potential outcomes", "missing data"]
+draft: false
+---
+
+```{r, warning = FALSE, message = FALSE, echo = FALSE}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(gt)
+library(gtExtras)
+library(gtUtils)
+```
+
+I've been thinking about potential outcomes a lot recently and thinking through the connection between potential outcomes framework and missing data mechanism. A lot of the text below is from what I wrote in my qualifying document way back when I was in graduate school. I spruced it up a bit for this blog to help me think through the theory behind how causal inference works. 
+
+## Potential Outcomes Framework
+
+To answer questions about cause and effect, @neyman_application_1923 introduced the following framework in context of randomized experiments: What would the outcome be for an individual if that person received some treatment compared to if that person were not treated but received some alternative? 
+For example, what would college readiness score be for a student if they participated in a college preparatory math course compared to if they took normal high school coursework? The difference between the outcomes under the two conditions is the causal effect for that student. Under the potential outcomes framework, each unit has two potential outcomes. $Y_i(1)$ is the potential outcome under treatment, the outcome if unit $i$ had taken the preparatory course and $Y_i(0)$ is the potential outcome under the control condition, the outcome if unit $i$ had not taken the course but taken normal high school classes. The causal effect, $\delta_i$, for unit $i$ is defined as:
+
+$$ \delta_{i} = Y_{i}(1) - Y_{i}(0)$$
+
+### The Fundamental Problem of Causal Inference
+
+The problem that arises with the potential outcomes framework is that it is impossible to observe both of the outcomes for the same unit at a given point in time [@gerber_field_2012; @imbens_causal_2015]. Students either took the preparatory class or they did not; one potential outcome is observed and the other is missing. Table 1 illustrates the conundrum posed by the the potential outcomes framework. Let $D$ be a binary treatment indicator variable, where if $D_{i} = 1$, then unit $i$ received treatment, college preparatory math course, and if $D_{i} = 0$, then unit $i$ received the control condition, normal high school course. Let $Y$ be an observed outcome variable (e.g., scores on a college readiness measure). In the table, $?$ denotes missing values. Each student's observed outcome is their potential outcome under whatever condition they received. If unit $i$ participated in the treatment condition, their potential outcome under the treatment condition is observed, $Y_{i} = Y_{i}(1)$, and their potential outcome under the control condition is missing. If unit $i$ participated in the control condition, their potential outcome under the control condition is observed, $Y_{i} = Y_{i}(0)$, and their potential outcome under the treatment condition is missing [@hernan_2019]. Because one of the potential outcomes is missing for each of the students, the causal effect estimate for any student cannot be derived [@gerber_field_2012; @imbens_causal_2015]. @holland_statistics_1986 described this issue as the "fundamental problem of causal inference," which in its essence is a missing data problem. In the next section, I review how to identify causal effect estimates when one of the potential outcomes will always be missing for each unit.
+
+```{r po, echo = F, warning = F, message = F}
+
+potential_dat <- tibble::tibble(Student = c("A", "B", "C", "D", "E"),
+               Y0 = c("?", "60", "?", "65", "?"),
+               Y1 = c("80", "?", "85", "?", "82"),
+               D = c(1, 0, 1, 0 , 1), 
+               Y = c(80, 60, 85, 65, 82), 
+               d = c(rep("?", 5)))
+
+
+gt(potential_dat) |>
+  tab_caption(caption = "Table 1: Potential Outcomes") |>
+  #tab_header(title = "Table 1: Potential Outcomes") |>
+  cols_label(
+    Y0 = "Y(0)", 
+    Y1 = "Y(1)", 
+    d =  html("&delta;")) |>
+  gt_theme_midnight(accent = "#808080") |>
+  tab_options(table.width = pct(60),
+              heading.title.font.size = "small") 
+
+```
+
+### Assumptions of Potential Outcomes Framework
+
+There are two major assumptions underlying the potential outcomes framework: (1) Non-interference: A unit's potential outcome under given treatment condition depends only on the unit's treatment assignment and not the assignment of any other units [@gerber_field_2012]. An example of violation of this assumption would be if a student who is not assigned to the college preparatory class is best friends with a student who is taking the course and they study together using the materials provided in the preparatory course. The outcome of the first student will be dependent on the second student's treatment assignment. (2) Single version of each treatment level: The treatment conditions must be well specified. This assumption will be violated if college readiness depends on how specific teachers are conducting the classes and how well they are trained instead of the course curriculum itself. In this scenario, the interpretation of the causal effect of taking the college preparatory course becomes unclear [@gerber_field_2012; @hernan_2019]. The two assumptions together have been called the Stable Unit Treatment Value Assumption or SUTVA [@gerber_field_2012; @imbens_causal_2015].
+
+## Assignment Mechanism and Independence Assumption
+
+### Randomized Experiments & Missing Completely at Random (MCAR)
+
+The gold standard method to estimate the average causal effect is to conduct a randomized experiment [@shadish_experimental_2001]. In randomized experiments, units are randomly assigned to the treatment or control group. If randomization works and there is no attrition and full compliance, the treatment and control groups should not differ systematically in terms of any other variables observed or unobserved, and the potential outcomes, $Y(0)$ and $Y(1)$, will be independent of the treatment condition, D [@shadish_experimental_2001]:
+
+$$Y(0), Y(1) \perp\!\!\!\perp D$$ 
+
+Such independence allows the following:
+
+$$E[Y_i(1)|D_i = 1] = E[Y_i(1)|D_i = 0] = E[Y_i(1)]$$
+and,
+
+$$E[Y_i(0)|D_i = 1] = E[Y_i(0)|D_i = 0] = E[Y_i(0)]$$
+
+In other terms, taking the average of the potential outcomes under treatment just for the treated group is the same as taking the average of the potential outcomes under treatment across all units in the population because the treated group can be considered as a random sample of all units in the population [@gerber_field_2012]. The same logic holds for the control group. Given the equivalences in above two equations, the average treatment effect can be derived as:
+
+$$E[\delta_{i}] = E[Y_i(1) - Y_i(0)] =  E[Y_i(1)|D_i = 1] - E[Y_i(0) | D_i = 0]  = E[Y_i|D_i = 1] - E[Y_i | D_i = 0]$$
+Although one of the potential outcomes will be missing for each of the units in each condition,  $E[Y_i(1)|D_i = 1]$ and $E[Y_i(0) | D_i = 0]$ can be estimated because the respective potential outcomes for each of the groups are actually observed. Therefore, the average treatment effect can be estimated by taking the difference in the means of the outcome in the treated group and the control group [@gerber_field_2012]. Randomization, if done correctly, creates a siutation where we have potential outcomes **missing completely at random (MCAR)**. Therefore, running complete case analysis like above can get us an unbiased treatment effect estimate [@van2012flexible]. 
+
+### Observational Studies and Missing at Random (MAR)
+
+With randomized experiments, the treatment and control groups can be assumed to not differ systematically. However, randomized experiments are not always feasible or ethical [@gerber_field_2012; @hill_2004; @ho_matching_2007]. In the running example, it may not be practically feasible or ethical to randomly assign a student who is struggling to be prepared for college to not receive a preparatory class, especially if the class is designed to help students graduate from high school and enroll in college.
+
+In such cases, the students are not randomized into the class. Students who are in need of taking the class will take it or will be assigned to it. In the example, students who take the college preparatory course will be systematically different from students who do not take such a class in terms of demographics (e.g., lower socio-economic status, SES) and past achievement (e.g., lower performance in prior math courses). These variables can also be related to the outcome as students with lower SES and past achievement may be less likely to be ready for college than students with higher SES and past achievement. Variables like these that systematically affect both treatment assignment and the outcome are called confounders [@stuart_matching_2010]. Due to the presence of these confounders, the neat and tidy equation we have for getting average treatment effect from randomized experiements no longer holds [@hill_2004; @ho_matching_2007]. The average treatment effect can no longer be retrieved by taking the simple difference in the averages of the treatment and control groups. The difference in college readiness between those who take the college preparatory course and those who take typical high school course may be due to the preparatory course, or due to SES, or due to differences in past achievement, or a combination of any or all of these.
+
+Non-randomized studies like this where the researcher does not have any control over the treatment assignment are called observational studies [@hill_2004; @ho_matching_2007]. To derive the causal effect estimate from an observational study, a researcher needs to have access to data containing all of the important confounders in addition to the treatment indicator and the outcome variables [@ho_matching_2007]. Typically, observational studies require large surveys or administrative databases. Below, I explain how to derive causal effect estimates in the presence of confounders. 
+
+Earlier, I explained the potential outcomes framework as the basis for examining causal effect. @neyman_application_1923 had introduced the potential outcomes framework. However, it had only been applied in context of randomized experiments, where we can assume that the missingness in the potential outcomes follow the MCAR mechanism. 
+
+To extend the potential outcomes framework to the observational studies context, we can impose the mechanism of **Missing at Random (MAR)** for the missingness pattern of the potential outcomes [@van2012flexible]. In this context, we assume the potential outcomes to be independent of treatment **conditional** on $X$ assuming $X$ captures all important confounders and we have all the confounders observed [@rosenbaum1983]:
+
+$$Y(0), Y(1) \perp\!\!\!\perp D|X $$
+To adequately condition on $X$, every level defined by $X$ needs to have some treated units and some comparison units:
+
+$$0 < Pr(D_i = 1|X_i) < 1 $$
+If all confounders are observed and there are some treated and untreated units at all levels, _strong ignorability_ can be assumed [@rosenbaum1983]. If strong ignorability holds, the means of the two potential outcomes for all units in the population can be recovered after conditioning on $X$:
+
+$$E[\delta_{i}|X_i] = E[Y_i(1) - Y_i(0)|X_i] = E[Y_i|D_i = 1, X_i] - E[Y_i| D_i = 0, X_i]$$
+
+Applying the law of iterated expectations, by averaging over the distribution of $X$, the average treatment effect, ATE, can be obtained [@hill_2004]:
+
+$$E[\delta_{i}] = E[Y_i(1) - Y_i(0)] = E_{X}[E[Y_i|D_i = 1, X_i]] - E_{X}[E[Y_i| D_i = 0, X_i]] 
+$$
+
+In a randomized experiment, the treated and the untreated groups are considered to be random subsamples of the full population and the potential outcomes can be thought of as MCAR. In observational studies, we can get the average treatment effect by assuming that the potential outcomes are MAR. By assuming that we have all the counfounding variables accounted for and conditioning on them, we can estimate the causal ATE from this design. Complete case analysis does not work under MAR. So we condition on $X$.
+
+Moreoever, because the treated and the untreated groups are not random subsamples of the full population, in observational studies, we can calculate: (1) the Average Treatment Effect (ATE) to capture the effect of the treatment for the full population of treated and untreated units; (2) the Average Treatment Effect for the Treated (ATT) to capture the effect of the treatment for the subset of the population who received the treatment; and, (3) the Average Treatment Effect for the Untreated (ATU) to capture the effect of the treatment for the subset of the population who did not receive the treatment. The ATT can be obtained by averaging over the distribution of $X$ among the treated units and the ATU can be obtained by averaging over the distribution of $X$ among the untreated units [@austin_introduction_2011; @imbens2004nonparametric].
+
+In program evaluation and policy assessment, analyzing the effect of the treatment on the subgroup of treated or untreated groups can oftentimes be more relevant than focusing on the ATE [@austin_introduction_2011; @imbens2004nonparametric]. For example, estimating the effect of the college preparatory course on those who were not ready for college can help people who created the course, administrators who implemented the policy, and school districts that were required to offer the program assess whether the intervention was successful in making the students who needed help become college ready. In this case, estimating the ATE might not be all that useful as policy-makers would not care whether the preparatory class is effective for all students. Rather, they would want to know if the course is helping those students who are not prepared for college-level courses and need to take the preparatory class to succeed in college. 

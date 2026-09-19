@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Megha Joshi">
+<meta name="dcterms.date" content="2026-09-19">
+
+<title>Potential Outcomes and Missing Data – Megha Joshi</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-a9d1393a921a598e5d6467954ced1de7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Potential Outcomes and Missing Data – Megha Joshi">
+<meta property="og:description" content="">
+<meta property="og:site_name" content="Megha Joshi">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Megha Joshi</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts.html"> 
+<span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../software.html"> 
+<span class="menu-text">Software</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../publications.html"> 
+<span class="menu-text">Selected Publications</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../teaching.html"> 
+<span class="menu-text">Teaching</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../research-assistants.html"> 
+<span class="menu-text">Research Assistants</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../resume/index.html"> 
+<span class="menu-text">Resume</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/meghapsimatrix"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Potential Outcomes and Missing Data</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">ab testing</div>
+                <div class="quarto-category">causal inference</div>
+                <div class="quarto-category">potential outcomes</div>
+                <div class="quarto-category">missing data</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Megha Joshi </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 19, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#potential-outcomes-framework" id="toc-potential-outcomes-framework" class="nav-link active" data-scroll-target="#potential-outcomes-framework">Potential Outcomes Framework</a>
+  <ul class="collapse">
+  <li><a href="#the-fundamental-problem-of-causal-inference" id="toc-the-fundamental-problem-of-causal-inference" class="nav-link" data-scroll-target="#the-fundamental-problem-of-causal-inference">The Fundamental Problem of Causal Inference</a></li>
+  <li><a href="#assumptions-of-potential-outcomes-framework" id="toc-assumptions-of-potential-outcomes-framework" class="nav-link" data-scroll-target="#assumptions-of-potential-outcomes-framework">Assumptions of Potential Outcomes Framework</a></li>
+  </ul></li>
+  <li><a href="#assignment-mechanism-and-independence-assumption" id="toc-assignment-mechanism-and-independence-assumption" class="nav-link" data-scroll-target="#assignment-mechanism-and-independence-assumption">Assignment Mechanism and Independence Assumption</a>
+  <ul class="collapse">
+  <li><a href="#randomized-experiments-missing-completely-at-random-mcar" id="toc-randomized-experiments-missing-completely-at-random-mcar" class="nav-link" data-scroll-target="#randomized-experiments-missing-completely-at-random-mcar">Randomized Experiments &amp; Missing Completely at Random (MCAR)</a></li>
+  <li><a href="#observational-studies-and-missing-at-random-mar" id="toc-observational-studies-and-missing-at-random-mar" class="nav-link" data-scroll-target="#observational-studies-and-missing-at-random-mar">Observational Studies and Missing at Random (MAR)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>I’ve been thinking about potential outcomes a lot recently and thinking through the connection between potential outcomes framework and missing data mechanism. A lot of the text below is from what I wrote in my qualifying document way back when I was in graduate school. I spruced it up a bit for this blog to help me think through the theory behind how causal inference works.</p>
+<section id="potential-outcomes-framework" class="level2">
+<h2 class="anchored" data-anchor-id="potential-outcomes-framework">Potential Outcomes Framework</h2>
+<p>To answer questions about cause and effect, <span class="citation" data-cites="neyman_application_1923">Neyman (<a href="#ref-neyman_application_1923" role="doc-biblioref">1923</a>)</span> introduced the following framework in context of randomized experiments: What would the outcome be for an individual if that person received some treatment compared to if that person were not treated but received some alternative? For example, what would college readiness score be for a student if they participated in a college preparatory math course compared to if they took normal high school coursework? The difference between the outcomes under the two conditions is the causal effect for that student. Under the potential outcomes framework, each unit has two potential outcomes. <span class="math inline">\(Y_i(1)\)</span> is the potential outcome under treatment, the outcome if unit <span class="math inline">\(i\)</span> had taken the preparatory course and <span class="math inline">\(Y_i(0)\)</span> is the potential outcome under the control condition, the outcome if unit <span class="math inline">\(i\)</span> had not taken the course but taken normal high school classes. The causal effect, <span class="math inline">\(\delta_i\)</span>, for unit <span class="math inline">\(i\)</span> is defined as:</p>
+<p><span class="math display">\[ \delta_{i} = Y_{i}(1) - Y_{i}(0)\]</span></p>
+<section id="the-fundamental-problem-of-causal-inference" class="level3">
+<h3 class="anchored" data-anchor-id="the-fundamental-problem-of-causal-inference">The Fundamental Problem of Causal Inference</h3>
+<p>The problem that arises with the potential outcomes framework is that it is impossible to observe both of the outcomes for the same unit at a given point in time <span class="citation" data-cites="gerber_field_2012 imbens_causal_2015">(<a href="#ref-gerber_field_2012" role="doc-biblioref">Gerber and Green 2012</a>; <a href="#ref-imbens_causal_2015" role="doc-biblioref">G. Imbens and Rubin 2015</a>)</span>. Students either took the preparatory class or they did not; one potential outcome is observed and the other is missing. Table 1 illustrates the conundrum posed by the the potential outcomes framework. Let <span class="math inline">\(D\)</span> be a binary treatment indicator variable, where if <span class="math inline">\(D_{i} = 1\)</span>, then unit <span class="math inline">\(i\)</span> received treatment, college preparatory math course, and if <span class="math inline">\(D_{i} = 0\)</span>, then unit <span class="math inline">\(i\)</span> received the control condition, normal high school course. Let <span class="math inline">\(Y\)</span> be an observed outcome variable (e.g., scores on a college readiness measure). In the table, <span class="math inline">\(?\)</span> denotes missing values. Each student’s observed outcome is their potential outcome under whatever condition they received. If unit <span class="math inline">\(i\)</span> participated in the treatment condition, their potential outcome under the treatment condition is observed, <span class="math inline">\(Y_{i} = Y_{i}(1)\)</span>, and their potential outcome under the control condition is missing. If unit <span class="math inline">\(i\)</span> participated in the control condition, their potential outcome under the control condition is observed, <span class="math inline">\(Y_{i} = Y_{i}(0)\)</span>, and their potential outcome under the treatment condition is missing <span class="citation" data-cites="hernan_2019">(<a href="#ref-hernan_2019" role="doc-biblioref">Hernán and Robins 2019</a>)</span>. Because one of the potential outcomes is missing for each of the students, the causal effect estimate for any student cannot be derived <span class="citation" data-cites="gerber_field_2012 imbens_causal_2015">(<a href="#ref-gerber_field_2012" role="doc-biblioref">Gerber and Green 2012</a>; <a href="#ref-imbens_causal_2015" role="doc-biblioref">G. Imbens and Rubin 2015</a>)</span>. <span class="citation" data-cites="holland_statistics_1986">Holland (<a href="#ref-holland_statistics_1986" role="doc-biblioref">1986</a>)</span> described this issue as the “fundamental problem of causal inference,” which in its essence is a missing data problem. In the next section, I review how to identify causal effect estimates when one of the potential outcomes will always be missing for each unit.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="cuejzlaalj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+#cuejzlaalj table {
+  font-family: Chivo, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#cuejzlaalj thead, #cuejzlaalj tbody, #cuejzlaalj tfoot, #cuejzlaalj tr, #cuejzlaalj td, #cuejzlaalj th {
+  border-style: none;
+}
+
+#cuejzlaalj p {
+  margin: 0;
+  padding: 0;
+}
+
+#cuejzlaalj .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #0C0D10;
+  width: 60%;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #808080;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#cuejzlaalj .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#cuejzlaalj .gt_title {
+  color: #FFFFFF;
+  font-size: small;
+  font-weight: initial;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #0C0D10;
+  border-bottom-width: 0;
+}
+
+#cuejzlaalj .gt_subtitle {
+  color: #FFFFFF;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 5px;
+  padding-bottom: 7px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #0C0D10;
+  border-top-width: 0;
+}
+
+#cuejzlaalj .gt_heading {
+  background-color: #0C0D10;
+  text-align: left;
+  border-bottom-color: #0C0D10;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cuejzlaalj .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cuejzlaalj .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #24272E;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cuejzlaalj .gt_col_heading {
+  color: #FFFFFF;
+  background-color: #16181D;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#cuejzlaalj .gt_column_spanner_outer {
+  color: #FFFFFF;
+  background-color: #16181D;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#cuejzlaalj .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#cuejzlaalj .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#cuejzlaalj .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #24272E;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#cuejzlaalj .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#cuejzlaalj .gt_group_heading {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #FFFFFF;
+  background-color: #0C0D10;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #24272E;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#cuejzlaalj .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #FFFFFF;
+  background-color: #0C0D10;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #24272E;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#cuejzlaalj .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#cuejzlaalj .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#cuejzlaalj .gt_row {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #24272E;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#cuejzlaalj .gt_stub {
+  color: #FFFFFF;
+  background-color: #0C0D10;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cuejzlaalj .gt_stub_row_group {
+  color: #FFFFFF;
+  background-color: #0C0D10;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#cuejzlaalj .gt_row_group_first td {
+  border-top-width: 1px;
+}
+
+#cuejzlaalj .gt_row_group_first th {
+  border-top-width: 1px;
+}
+
+#cuejzlaalj .gt_summary_row {
+  color: #FFFFFF;
+  background-color: #0C0D10;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cuejzlaalj .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#cuejzlaalj .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#cuejzlaalj .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cuejzlaalj .gt_grand_summary_row {
+  color: #FFFFFF;
+  background-color: #0C0D10;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cuejzlaalj .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#cuejzlaalj .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cuejzlaalj .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#cuejzlaalj .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #24272E;
+}
+
+#cuejzlaalj .gt_footnotes {
+  color: #FFFFFF;
+  background-color: #0C0D10;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cuejzlaalj .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cuejzlaalj .gt_sourcenotes {
+  color: #FFFFFF;
+  background-color: #0C0D10;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cuejzlaalj .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cuejzlaalj .gt_left {
+  text-align: left;
+}
+
+#cuejzlaalj .gt_center {
+  text-align: center;
+}
+
+#cuejzlaalj .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#cuejzlaalj .gt_font_normal {
+  font-weight: normal;
+}
+
+#cuejzlaalj .gt_font_bold {
+  font-weight: bold;
+}
+
+#cuejzlaalj .gt_font_italic {
+  font-style: italic;
+}
+
+#cuejzlaalj .gt_super {
+  font-size: 65%;
+}
+
+#cuejzlaalj .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#cuejzlaalj .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#cuejzlaalj .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#cuejzlaalj .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#cuejzlaalj .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#cuejzlaalj .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#cuejzlaalj .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#cuejzlaalj .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#cuejzlaalj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+
+#cuejzlaalj td {
+  font-variant-numeric: tabular-nums;
+}
+
+#cuejzlaalj tbody tr:last-child {
+  border-bottom: 2px solid #0C0D10;
+}
+
+#cuejzlaalj td, #cuejzlaalj th {
+  line-height: 1.55;
+}
+
+#cuejzlaalj .gt_subtitle {
+  padding-bottom: 14px !important;
+}
+
+#cuejzlaalj .gt_title {
+  padding-bottom: 3px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<caption>Table 1: Potential Outcomes</caption>
+<thead>
+<tr class="gt_col_headings header">
+<th id="Student" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="color: #9498A3; font-size: 11px; font-weight: 600" scope="col">Student</th>
+<th id="Y0" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="color: #9498A3; font-size: 11px; font-weight: 600" scope="col">Y(0)</th>
+<th id="Y1" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="color: #9498A3; font-size: 11px; font-weight: 600" scope="col">Y(1)</th>
+<th id="D" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #9498A3; font-size: 11px; font-weight: 600" scope="col">D</th>
+<th id="Y" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #9498A3; font-size: 11px; font-weight: 600" scope="col">Y</th>
+<th id="d" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="color: #9498A3; font-size: 11px; font-weight: 600" scope="col">δ</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Student" style="color: #E8E9ED; font-size: 14px">A</td>
+<td class="gt_row gt_left" headers="Y0" style="color: #E8E9ED; font-size: 14px">?</td>
+<td class="gt_row gt_left" headers="Y1" style="color: #E8E9ED; font-size: 14px">80</td>
+<td class="gt_row gt_right" headers="D" style="color: #E8E9ED; font-size: 14px">1</td>
+<td class="gt_row gt_right" headers="Y" style="color: #E8E9ED; font-size: 14px">80</td>
+<td class="gt_row gt_left" headers="d" style="color: #E8E9ED; font-size: 14px">?</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Student" style="color: #E8E9ED; font-size: 14px">B</td>
+<td class="gt_row gt_left" headers="Y0" style="color: #E8E9ED; font-size: 14px">60</td>
+<td class="gt_row gt_left" headers="Y1" style="color: #E8E9ED; font-size: 14px">?</td>
+<td class="gt_row gt_right" headers="D" style="color: #E8E9ED; font-size: 14px">0</td>
+<td class="gt_row gt_right" headers="Y" style="color: #E8E9ED; font-size: 14px">60</td>
+<td class="gt_row gt_left" headers="d" style="color: #E8E9ED; font-size: 14px">?</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Student" style="color: #E8E9ED; font-size: 14px">C</td>
+<td class="gt_row gt_left" headers="Y0" style="color: #E8E9ED; font-size: 14px">?</td>
+<td class="gt_row gt_left" headers="Y1" style="color: #E8E9ED; font-size: 14px">85</td>
+<td class="gt_row gt_right" headers="D" style="color: #E8E9ED; font-size: 14px">1</td>
+<td class="gt_row gt_right" headers="Y" style="color: #E8E9ED; font-size: 14px">85</td>
+<td class="gt_row gt_left" headers="d" style="color: #E8E9ED; font-size: 14px">?</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Student" style="color: #E8E9ED; font-size: 14px">D</td>
+<td class="gt_row gt_left" headers="Y0" style="color: #E8E9ED; font-size: 14px">65</td>
+<td class="gt_row gt_left" headers="Y1" style="color: #E8E9ED; font-size: 14px">?</td>
+<td class="gt_row gt_right" headers="D" style="color: #E8E9ED; font-size: 14px">0</td>
+<td class="gt_row gt_right" headers="Y" style="color: #E8E9ED; font-size: 14px">65</td>
+<td class="gt_row gt_left" headers="d" style="color: #E8E9ED; font-size: 14px">?</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Student" style="color: #E8E9ED; font-size: 14px">E</td>
+<td class="gt_row gt_left" headers="Y0" style="color: #E8E9ED; font-size: 14px">?</td>
+<td class="gt_row gt_left" headers="Y1" style="color: #E8E9ED; font-size: 14px">82</td>
+<td class="gt_row gt_right" headers="D" style="color: #E8E9ED; font-size: 14px">1</td>
+<td class="gt_row gt_right" headers="Y" style="color: #E8E9ED; font-size: 14px">82</td>
+<td class="gt_row gt_left" headers="d" style="color: #E8E9ED; font-size: 14px">?</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="assumptions-of-potential-outcomes-framework" class="level3">
+<h3 class="anchored" data-anchor-id="assumptions-of-potential-outcomes-framework">Assumptions of Potential Outcomes Framework</h3>
+<p>There are two major assumptions underlying the potential outcomes framework: (1) Non-interference: A unit’s potential outcome under given treatment condition depends only on the unit’s treatment assignment and not the assignment of any other units <span class="citation" data-cites="gerber_field_2012">(<a href="#ref-gerber_field_2012" role="doc-biblioref">Gerber and Green 2012</a>)</span>. An example of violation of this assumption would be if a student who is not assigned to the college preparatory class is best friends with a student who is taking the course and they study together using the materials provided in the preparatory course. The outcome of the first student will be dependent on the second student’s treatment assignment. (2) Single version of each treatment level: The treatment conditions must be well specified. This assumption will be violated if college readiness depends on how specific teachers are conducting the classes and how well they are trained instead of the course curriculum itself. In this scenario, the interpretation of the causal effect of taking the college preparatory course becomes unclear <span class="citation" data-cites="gerber_field_2012 hernan_2019">(<a href="#ref-gerber_field_2012" role="doc-biblioref">Gerber and Green 2012</a>; <a href="#ref-hernan_2019" role="doc-biblioref">Hernán and Robins 2019</a>)</span>. The two assumptions together have been called the Stable Unit Treatment Value Assumption or SUTVA <span class="citation" data-cites="gerber_field_2012 imbens_causal_2015">(<a href="#ref-gerber_field_2012" role="doc-biblioref">Gerber and Green 2012</a>; <a href="#ref-imbens_causal_2015" role="doc-biblioref">G. Imbens and Rubin 2015</a>)</span>.</p>
+</section>
+</section>
+<section id="assignment-mechanism-and-independence-assumption" class="level2">
+<h2 class="anchored" data-anchor-id="assignment-mechanism-and-independence-assumption">Assignment Mechanism and Independence Assumption</h2>
+<section id="randomized-experiments-missing-completely-at-random-mcar" class="level3">
+<h3 class="anchored" data-anchor-id="randomized-experiments-missing-completely-at-random-mcar">Randomized Experiments &amp; Missing Completely at Random (MCAR)</h3>
+<p>The gold standard method to estimate the average causal effect is to conduct a randomized experiment <span class="citation" data-cites="shadish_experimental_2001">(<a href="#ref-shadish_experimental_2001" role="doc-biblioref">Shadish, Cook, and Campbell 2001</a>)</span>. In randomized experiments, units are randomly assigned to the treatment or control group. If randomization works and there is no attrition and full compliance, the treatment and control groups should not differ systematically in terms of any other variables observed or unobserved, and the potential outcomes, <span class="math inline">\(Y(0)\)</span> and <span class="math inline">\(Y(1)\)</span>, will be independent of the treatment condition, D <span class="citation" data-cites="shadish_experimental_2001">(<a href="#ref-shadish_experimental_2001" role="doc-biblioref">Shadish, Cook, and Campbell 2001</a>)</span>:</p>
+<p><span class="math display">\[Y(0), Y(1) \perp\!\!\!\perp D\]</span></p>
+<p>Such independence allows the following:</p>
+<p><span class="math display">\[E[Y_i(1)|D_i = 1] = E[Y_i(1)|D_i = 0] = E[Y_i(1)]\]</span> and,</p>
+<p><span class="math display">\[E[Y_i(0)|D_i = 1] = E[Y_i(0)|D_i = 0] = E[Y_i(0)]\]</span></p>
+<p>In other terms, taking the average of the potential outcomes under treatment just for the treated group is the same as taking the average of the potential outcomes under treatment across all units in the population because the treated group can be considered as a random sample of all units in the population <span class="citation" data-cites="gerber_field_2012">(<a href="#ref-gerber_field_2012" role="doc-biblioref">Gerber and Green 2012</a>)</span>. The same logic holds for the control group. Given the equivalences in above two equations, the average treatment effect can be derived as:</p>
+<p><span class="math display">\[E[\delta_{i}] = E[Y_i(1) - Y_i(0)] =  E[Y_i(1)|D_i = 1] - E[Y_i(0) | D_i = 0]  = E[Y_i|D_i = 1] - E[Y_i | D_i = 0]\]</span> Although one of the potential outcomes will be missing for each of the units in each condition, <span class="math inline">\(E[Y_i(1)|D_i = 1]\)</span> and <span class="math inline">\(E[Y_i(0) | D_i = 0]\)</span> can be estimated because the respective potential outcomes for each of the groups are actually observed. Therefore, the average treatment effect can be estimated by taking the difference in the means of the outcome in the treated group and the control group <span class="citation" data-cites="gerber_field_2012">(<a href="#ref-gerber_field_2012" role="doc-biblioref">Gerber and Green 2012</a>)</span>. Randomization, if done correctly, creates a siutation where we have potential outcomes <strong>missing completely at random (MCAR)</strong>. Therefore, running complete case analysis like above can get us an unbiased treatment effect estimate <span class="citation" data-cites="van2012flexible">(<a href="#ref-van2012flexible" role="doc-biblioref">Van Buuren 2012</a>)</span>.</p>
+</section>
+<section id="observational-studies-and-missing-at-random-mar" class="level3">
+<h3 class="anchored" data-anchor-id="observational-studies-and-missing-at-random-mar">Observational Studies and Missing at Random (MAR)</h3>
+<p>With randomized experiments, the treatment and control groups can be assumed to not differ systematically. However, randomized experiments are not always feasible or ethical <span class="citation" data-cites="gerber_field_2012 hill_2004 ho_matching_2007">(<a href="#ref-gerber_field_2012" role="doc-biblioref">Gerber and Green 2012</a>; <a href="#ref-hill_2004" role="doc-biblioref">Hill 2004</a>; <a href="#ref-ho_matching_2007" role="doc-biblioref">Ho et al. 2007</a>)</span>. In the running example, it may not be practically feasible or ethical to randomly assign a student who is struggling to be prepared for college to not receive a preparatory class, especially if the class is designed to help students graduate from high school and enroll in college.</p>
+<p>In such cases, the students are not randomized into the class. Students who are in need of taking the class will take it or will be assigned to it. In the example, students who take the college preparatory course will be systematically different from students who do not take such a class in terms of demographics (e.g., lower socio-economic status, SES) and past achievement (e.g., lower performance in prior math courses). These variables can also be related to the outcome as students with lower SES and past achievement may be less likely to be ready for college than students with higher SES and past achievement. Variables like these that systematically affect both treatment assignment and the outcome are called confounders <span class="citation" data-cites="stuart_matching_2010">(<a href="#ref-stuart_matching_2010" role="doc-biblioref">Stuart 2010</a>)</span>. Due to the presence of these confounders, the neat and tidy equation we have for getting average treatment effect from randomized experiements no longer holds <span class="citation" data-cites="hill_2004 ho_matching_2007">(<a href="#ref-hill_2004" role="doc-biblioref">Hill 2004</a>; <a href="#ref-ho_matching_2007" role="doc-biblioref">Ho et al. 2007</a>)</span>. The average treatment effect can no longer be retrieved by taking the simple difference in the averages of the treatment and control groups. The difference in college readiness between those who take the college preparatory course and those who take typical high school course may be due to the preparatory course, or due to SES, or due to differences in past achievement, or a combination of any or all of these.</p>
+<p>Non-randomized studies like this where the researcher does not have any control over the treatment assignment are called observational studies <span class="citation" data-cites="hill_2004 ho_matching_2007">(<a href="#ref-hill_2004" role="doc-biblioref">Hill 2004</a>; <a href="#ref-ho_matching_2007" role="doc-biblioref">Ho et al. 2007</a>)</span>. To derive the causal effect estimate from an observational study, a researcher needs to have access to data containing all of the important confounders in addition to the treatment indicator and the outcome variables <span class="citation" data-cites="ho_matching_2007">(<a href="#ref-ho_matching_2007" role="doc-biblioref">Ho et al. 2007</a>)</span>. Typically, observational studies require large surveys or administrative databases. Below, I explain how to derive causal effect estimates in the presence of confounders.</p>
+<p>Earlier, I explained the potential outcomes framework as the basis for examining causal effect. <span class="citation" data-cites="neyman_application_1923">Neyman (<a href="#ref-neyman_application_1923" role="doc-biblioref">1923</a>)</span> had introduced the potential outcomes framework. However, it had only been applied in context of randomized experiments, where we can assume that the missingness in the potential outcomes follow the MCAR mechanism.</p>
+<p>To extend the potential outcomes framework to the observational studies context, we can impose the mechanism of <strong>Missing at Random (MAR)</strong> for the missingness pattern of the potential outcomes <span class="citation" data-cites="van2012flexible">(<a href="#ref-van2012flexible" role="doc-biblioref">Van Buuren 2012</a>)</span>. In this context, we assume the potential outcomes to be independent of treatment <strong>conditional</strong> on <span class="math inline">\(X\)</span> assuming <span class="math inline">\(X\)</span> captures all important confounders and we have all the confounders observed <span class="citation" data-cites="rosenbaum1983">(<a href="#ref-rosenbaum1983" role="doc-biblioref">Rosenbaum and Rubin 1983</a>)</span>:</p>
+<p><span class="math display">\[Y(0), Y(1) \perp\!\!\!\perp D|X \]</span> To adequately condition on <span class="math inline">\(X\)</span>, every level defined by <span class="math inline">\(X\)</span> needs to have some treated units and some comparison units:</p>
+<p><span class="math display">\[0 &lt; Pr(D_i = 1|X_i) &lt; 1 \]</span> If all confounders are observed and there are some treated and untreated units at all levels, <em>strong ignorability</em> can be assumed <span class="citation" data-cites="rosenbaum1983">(<a href="#ref-rosenbaum1983" role="doc-biblioref">Rosenbaum and Rubin 1983</a>)</span>. If strong ignorability holds, the means of the two potential outcomes for all units in the population can be recovered after conditioning on <span class="math inline">\(X\)</span>:</p>
+<p><span class="math display">\[E[\delta_{i}|X_i] = E[Y_i(1) - Y_i(0)|X_i] = E[Y_i|D_i = 1, X_i] - E[Y_i| D_i = 0, X_i]\]</span></p>
+<p>Applying the law of iterated expectations, by averaging over the distribution of <span class="math inline">\(X\)</span>, the average treatment effect, ATE, can be obtained <span class="citation" data-cites="hill_2004">(<a href="#ref-hill_2004" role="doc-biblioref">Hill 2004</a>)</span>:</p>
+<p><span class="math display">\[E[\delta_{i}] = E[Y_i(1) - Y_i(0)] = E_{X}[E[Y_i|D_i = 1, X_i]] - E_{X}[E[Y_i| D_i = 0, X_i]]
+\]</span></p>
+<p>In a randomized experiment, the treated and the untreated groups are considered to be random subsamples of the full population and the potential outcomes can be thought of as MCAR. In observational studies, we can get the average treatment effect by assuming that the potential outcomes are MAR. By assuming that we have all the counfounding variables accounted for and conditioning on them, we can estimate the causal ATE from this design. Complete case analysis does not work under MAR. So we condition on <span class="math inline">\(X\)</span>.</p>
+<p>Moreoever, because the treated and the untreated groups are not random subsamples of the full population, in observational studies, we can calculate: (1) the Average Treatment Effect (ATE) to capture the effect of the treatment for the full population of treated and untreated units; (2) the Average Treatment Effect for the Treated (ATT) to capture the effect of the treatment for the subset of the population who received the treatment; and, (3) the Average Treatment Effect for the Untreated (ATU) to capture the effect of the treatment for the subset of the population who did not receive the treatment. The ATT can be obtained by averaging over the distribution of <span class="math inline">\(X\)</span> among the treated units and the ATU can be obtained by averaging over the distribution of <span class="math inline">\(X\)</span> among the untreated units <span class="citation" data-cites="austin_introduction_2011 imbens2004nonparametric">(<a href="#ref-austin_introduction_2011" role="doc-biblioref">Austin 2011</a>; <a href="#ref-imbens2004nonparametric" role="doc-biblioref">G. W. Imbens 2004</a>)</span>.</p>
+<p>In program evaluation and policy assessment, analyzing the effect of the treatment on the subgroup of treated or untreated groups can oftentimes be more relevant than focusing on the ATE <span class="citation" data-cites="austin_introduction_2011 imbens2004nonparametric">(<a href="#ref-austin_introduction_2011" role="doc-biblioref">Austin 2011</a>; <a href="#ref-imbens2004nonparametric" role="doc-biblioref">G. W. Imbens 2004</a>)</span>. For example, estimating the effect of the college preparatory course on those who were not ready for college can help people who created the course, administrators who implemented the policy, and school districts that were required to offer the program assess whether the intervention was successful in making the students who needed help become college ready. In this case, estimating the ATE might not be all that useful as policy-makers would not care whether the preparatory class is effective for all students. Rather, they would want to know if the course is helping those students who are not prepared for college-level courses and need to take the preparatory class to succeed in college.</p>
+
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-austin_introduction_2011" class="csl-entry" role="listitem">
+Austin, Peter C. 2011. <span>“An <span>Introduction</span> to <span>Propensity</span> <span>Score</span> <span>Methods</span> for <span>Reducing</span> the <span>Effects</span> of <span>Confounding</span> in <span>Observational</span> <span>Studies</span>.”</span> <em>Multivariate Behavioral Research</em> 46 (3): 399–424. <a href="https://doi.org/10.1080/00273171.2011.568786">https://doi.org/10.1080/00273171.2011.568786</a>.
+</div>
+<div id="ref-gerber_field_2012" class="csl-entry" role="listitem">
+Gerber, Alan S., and Donald P. Green. 2012. <em>Field Experiments: Design, Analysis, and Interpretation</em>. 1st ed. New York: W. W. Norton.
+</div>
+<div id="ref-hernan_2019" class="csl-entry" role="listitem">
+Hernán, M. A., and J. M. Robins. 2019. <span>“Causal Inference.”</span> Boca Raton: Chapman &amp; Hall/CRC, forthcoming.
+</div>
+<div id="ref-hill_2004" class="csl-entry" role="listitem">
+Hill, Jennifer. 2004. <span>“Reducing Bias in Treatment Effect Estimation in Observational Studies Suffering from Missing Data.”</span> Columbia University Institute for Social &amp; Economic Research &amp; Policy (ISERP).
+</div>
+<div id="ref-ho_matching_2007" class="csl-entry" role="listitem">
+Ho, Daniel E., Kosuke Imai, Gary King, and Elizabeth A. Stuart. 2007. <span>“Matching as <span>Nonparametric</span> <span>Preprocessing</span> for <span>Reducing</span> <span>Model</span> <span>Dependence</span> in <span>Parametric</span> <span>Causal</span> <span>Inference</span>.”</span> <em>Political Analysis</em> 15 (3): 199–236. <a href="https://doi.org/10.1093/pan/mpl013">https://doi.org/10.1093/pan/mpl013</a>.
+</div>
+<div id="ref-holland_statistics_1986" class="csl-entry" role="listitem">
+Holland, Paul W. 1986. <span>“Statistics and <span>Causal</span> <span>Inference</span>.”</span> <em>Journal of the American Statistical Association</em> 81 (396): 945. <a href="https://doi.org/10.2307/2289064">https://doi.org/10.2307/2289064</a>.
+</div>
+<div id="ref-imbens2004nonparametric" class="csl-entry" role="listitem">
+Imbens, Guido W. 2004. <span>“Nonparametric Estimation of Average Treatment Effects Under Exogeneity: A Review.”</span> <em>Review of Economics and Statistics</em> 86 (1): 4–29.
+</div>
+<div id="ref-imbens_causal_2015" class="csl-entry" role="listitem">
+Imbens, Guido, and Donald B. Rubin. 2015. <em>Causal Inference for Statistics, Social, and Biomedical Sciences: An Introduction</em>. New York: Cambridge University Press.
+</div>
+<div id="ref-neyman_application_1923" class="csl-entry" role="listitem">
+Neyman, Jerzy. 1923. <span>“On the <span>Application</span> of <span>Probability</span> <span>Theory</span> to <span>Agricultural</span> <span>Experiments</span>. <span>Essay</span> on <span>Principles</span>. <span>Section</span> 9.”</span> <em>Statistical Science</em> 5 (4): 465–72.
+</div>
+<div id="ref-rosenbaum1983" class="csl-entry" role="listitem">
+Rosenbaum, Paul R., and Donald B. Rubin. 1983. <span>“The Central Role of the Propensity Score in Observational Studies for Causal Effects.”</span> <em>Biometrika</em> 70 (1): 41. <a href="https://doi.org/10.2307/2335942">https://doi.org/10.2307/2335942</a>.
+</div>
+<div id="ref-shadish_experimental_2001" class="csl-entry" role="listitem">
+Shadish, William R., Thomas D. Cook, and Donald T. Campbell. 2001. <em>Experimental and Quasi-Experimental Designs for Generalized Causal Inference</em>. Boston: Houghton Mifflin.
+</div>
+<div id="ref-stuart_matching_2010" class="csl-entry" role="listitem">
+Stuart, Elizabeth A. 2010. <span>“Matching <span>Methods</span> for <span>Causal</span> <span>Inference</span>: <span>A</span> <span>Review</span> and a <span>Look</span> <span>Forward</span>.”</span> <em>Statistical Science</em> 25 (1). <a href="https://doi.org/10.1214/09-STS313">https://doi.org/10.1214/09-STS313</a>.
+</div>
+<div id="ref-van2012flexible" class="csl-entry" role="listitem">
+Van Buuren, Stef. 2012. <em>Flexible Imputation of Missing Data</em>. Vol. 10. CRC press Boca Raton, FL.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/meghapsimatrix\.com");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
