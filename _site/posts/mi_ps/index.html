@@ -97,7 +97,7 @@ div.csl-indent {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-a9d1393a921a598e5d6467954ced1de7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-a1a22719fdbcd857ba3f1a9cf528897b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -127,7 +127,6 @@ div.csl-indent {
 }</script>
 
 
-<link rel="stylesheet" href="../../styles.css">
 <meta property="og:title" content="Propensity Score Analysis with Multiply Imputed Data – Megha Joshi">
 <meta property="og:description" content="">
 <meta property="og:image" content="https://meghapsimatrix.com/posts/mi_ps/index_files/figure-html/unnamed-chunk-3-1.png">
@@ -136,7 +135,7 @@ div.csl-indent {
 <meta property="og:image:width" content="1344">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -230,42 +229,7 @@ div.csl-indent {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#multiple-imputation-across-mi-across" id="toc-multiple-imputation-across-mi-across" class="nav-link active" data-scroll-target="#multiple-imputation-across-mi-across">Multiple Imputation Across (MI Across)</a></li>
-  <li><a href="#multiple-imputation-within-mi-within" id="toc-multiple-imputation-within-mi-within" class="nav-link" data-scroll-target="#multiple-imputation-within-mi-within">Multiple Imputation Within (MI Within)</a></li>
-  <li><a href="#read-in-the-data" id="toc-read-in-the-data" class="nav-link" data-scroll-target="#read-in-the-data">Read in the data</a></li>
-  <li><a href="#multiple-imputation-using-mice" id="toc-multiple-imputation-using-mice" class="nav-link" data-scroll-target="#multiple-imputation-using-mice">Multiple imputation using <code>mice</code></a>
-  <ul class="collapse">
-  <li><a href="#imputed-data" id="toc-imputed-data" class="nav-link" data-scroll-target="#imputed-data">Imputed data</a></li>
-  </ul></li>
-  <li><a href="#estimating-propensity-scores" id="toc-estimating-propensity-scores" class="nav-link" data-scroll-target="#estimating-propensity-scores">Estimating propensity scores</a></li>
-  <li><a href="#estimating-att-ipw-weights" id="toc-estimating-att-ipw-weights" class="nav-link" data-scroll-target="#estimating-att-ipw-weights">Estimating ATT IPW weights</a></li>
-  <li><a href="#checking-common-support" id="toc-checking-common-support" class="nav-link" data-scroll-target="#checking-common-support">Checking common support</a>
-  <ul class="collapse">
-  <li><a href="#across" id="toc-across" class="nav-link" data-scroll-target="#across">Across</a></li>
-  <li><a href="#within" id="toc-within" class="nav-link" data-scroll-target="#within">Within</a></li>
-  </ul></li>
-  <li><a href="#checking-balance" id="toc-checking-balance" class="nav-link" data-scroll-target="#checking-balance">Checking balance</a></li>
-  <li><a href="#estimating-att" id="toc-estimating-att" class="nav-link" data-scroll-target="#estimating-att">Estimating ATT</a></li>
-  <li><a href="#pooling-the-results" id="toc-pooling-the-results" class="nav-link" data-scroll-target="#pooling-the-results">Pooling the results</a>
-  <ul class="collapse">
-  <li><a href="#across-1" id="toc-across-1" class="nav-link" data-scroll-target="#across-1">Across</a></li>
-  <li><a href="#within-1" id="toc-within-1" class="nav-link" data-scroll-target="#within-1">Within</a></li>
-  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a>
-  <ul class="collapse">
-  <li><a href="#across-2" id="toc-across-2" class="nav-link" data-scroll-target="#across-2">Across</a></li>
-  <li><a href="#within-2" id="toc-within-2" class="nav-link" data-scroll-target="#within-2">Within</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#comparing-the-methods" id="toc-comparing-the-methods" class="nav-link" data-scroll-target="#comparing-the-methods">Comparing the methods</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 

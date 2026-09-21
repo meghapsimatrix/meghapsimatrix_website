@@ -239,24 +239,24 @@ window.Quarto = {
 <p>The problem that arises with the potential outcomes framework is that it is impossible to observe both of the outcomes for the same unit at a given point in time <span class="citation" data-cites="gerber_field_2012 imbens_causal_2015">(<a href="#ref-gerber_field_2012" role="doc-biblioref">Gerber and Green 2012</a>; <a href="#ref-imbens_causal_2015" role="doc-biblioref">G. Imbens and Rubin 2015</a>)</span>. Students either took the preparatory class or they did not; one potential outcome is observed and the other is missing. Table 1 illustrates the conundrum posed by the the potential outcomes framework. Let <span class="math inline">\(D\)</span> be a binary treatment indicator variable, where if <span class="math inline">\(D_{i} = 1\)</span>, then unit <span class="math inline">\(i\)</span> received treatment, college preparatory math course, and if <span class="math inline">\(D_{i} = 0\)</span>, then unit <span class="math inline">\(i\)</span> received the control condition, normal high school course. Let <span class="math inline">\(Y\)</span> be an observed outcome variable (e.g., scores on a college readiness measure). In the table, <span class="math inline">\(?\)</span> denotes missing values. Each student’s observed outcome is their potential outcome under whatever condition they received. If unit <span class="math inline">\(i\)</span> participated in the treatment condition, their potential outcome under the treatment condition is observed, <span class="math inline">\(Y_{i} = Y_{i}(1)\)</span>, and their potential outcome under the control condition is missing. If unit <span class="math inline">\(i\)</span> participated in the control condition, their potential outcome under the control condition is observed, <span class="math inline">\(Y_{i} = Y_{i}(0)\)</span>, and their potential outcome under the treatment condition is missing <span class="citation" data-cites="hernan_2019">(<a href="#ref-hernan_2019" role="doc-biblioref">Hernán and Robins 2019</a>)</span>. Because one of the potential outcomes is missing for each of the students, the causal effect estimate for any student cannot be derived <span class="citation" data-cites="gerber_field_2012 imbens_causal_2015">(<a href="#ref-gerber_field_2012" role="doc-biblioref">Gerber and Green 2012</a>; <a href="#ref-imbens_causal_2015" role="doc-biblioref">G. Imbens and Rubin 2015</a>)</span>. <span class="citation" data-cites="holland_statistics_1986">Holland (<a href="#ref-holland_statistics_1986" role="doc-biblioref">1986</a>)</span> described this issue as the “fundamental problem of causal inference,” which in its essence is a missing data problem. In the next section, I review how to identify causal effect estimates when one of the potential outcomes will always be missing for each unit.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="htlgmudlkg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="jzpanbzndf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-#htlgmudlkg table {
+#jzpanbzndf table {
   font-family: Chivo, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#htlgmudlkg thead, #htlgmudlkg tbody, #htlgmudlkg tfoot, #htlgmudlkg tr, #htlgmudlkg td, #htlgmudlkg th {
+#jzpanbzndf thead, #jzpanbzndf tbody, #jzpanbzndf tfoot, #jzpanbzndf tr, #jzpanbzndf td, #jzpanbzndf th {
   border-style: none;
 }
 
-#htlgmudlkg p {
+#jzpanbzndf p {
   margin: 0;
   padding: 0;
 }
 
-#htlgmudlkg .gt_table {
+#jzpanbzndf .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -282,12 +282,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#htlgmudlkg .gt_caption {
+#jzpanbzndf .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#htlgmudlkg .gt_title {
+#jzpanbzndf .gt_title {
   color: #FFFFFF;
   font-size: small;
   font-weight: initial;
@@ -299,7 +299,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#htlgmudlkg .gt_subtitle {
+#jzpanbzndf .gt_subtitle {
   color: #FFFFFF;
   font-size: 85%;
   font-weight: initial;
@@ -311,7 +311,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#htlgmudlkg .gt_heading {
+#jzpanbzndf .gt_heading {
   background-color: #0C0D10;
   text-align: left;
   border-bottom-color: #0C0D10;
@@ -323,13 +323,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#htlgmudlkg .gt_bottom_border {
+#jzpanbzndf .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#htlgmudlkg .gt_col_headings {
+#jzpanbzndf .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -344,7 +344,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#htlgmudlkg .gt_col_heading {
+#jzpanbzndf .gt_col_heading {
   color: #FFFFFF;
   background-color: #16181D;
   font-size: 100%;
@@ -364,7 +364,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#htlgmudlkg .gt_column_spanner_outer {
+#jzpanbzndf .gt_column_spanner_outer {
   color: #FFFFFF;
   background-color: #16181D;
   font-size: 100%;
@@ -376,15 +376,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#htlgmudlkg .gt_column_spanner_outer:first-child {
+#jzpanbzndf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#htlgmudlkg .gt_column_spanner_outer:last-child {
+#jzpanbzndf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#htlgmudlkg .gt_column_spanner {
+#jzpanbzndf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 1px;
   border-bottom-color: #24272E;
@@ -396,11 +396,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#htlgmudlkg .gt_spanner_row {
+#jzpanbzndf .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#htlgmudlkg .gt_group_heading {
+#jzpanbzndf .gt_group_heading {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -426,7 +426,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#htlgmudlkg .gt_empty_group_heading {
+#jzpanbzndf .gt_empty_group_heading {
   padding: 0.5px;
   color: #FFFFFF;
   background-color: #0C0D10;
@@ -441,15 +441,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#htlgmudlkg .gt_from_md > :first-child {
+#jzpanbzndf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#htlgmudlkg .gt_from_md > :last-child {
+#jzpanbzndf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#htlgmudlkg .gt_row {
+#jzpanbzndf .gt_row {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
@@ -468,7 +468,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#htlgmudlkg .gt_stub {
+#jzpanbzndf .gt_stub {
   color: #FFFFFF;
   background-color: #0C0D10;
   font-size: 100%;
@@ -481,7 +481,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#htlgmudlkg .gt_stub_row_group {
+#jzpanbzndf .gt_stub_row_group {
   color: #FFFFFF;
   background-color: #0C0D10;
   font-size: 100%;
@@ -495,15 +495,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#htlgmudlkg .gt_row_group_first td {
+#jzpanbzndf .gt_row_group_first td {
   border-top-width: 1px;
 }
 
-#htlgmudlkg .gt_row_group_first th {
+#jzpanbzndf .gt_row_group_first th {
   border-top-width: 1px;
 }
 
-#htlgmudlkg .gt_summary_row {
+#jzpanbzndf .gt_summary_row {
   color: #FFFFFF;
   background-color: #0C0D10;
   text-transform: inherit;
@@ -513,16 +513,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#htlgmudlkg .gt_first_summary_row {
+#jzpanbzndf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#htlgmudlkg .gt_first_summary_row.thick {
+#jzpanbzndf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#htlgmudlkg .gt_last_summary_row {
+#jzpanbzndf .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -532,7 +532,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#htlgmudlkg .gt_grand_summary_row {
+#jzpanbzndf .gt_grand_summary_row {
   color: #FFFFFF;
   background-color: #0C0D10;
   text-transform: inherit;
@@ -542,7 +542,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#htlgmudlkg .gt_first_grand_summary_row {
+#jzpanbzndf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -552,7 +552,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#htlgmudlkg .gt_last_grand_summary_row_top {
+#jzpanbzndf .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -562,11 +562,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#htlgmudlkg .gt_striped {
+#jzpanbzndf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#htlgmudlkg .gt_table_body {
+#jzpanbzndf .gt_table_body {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -575,7 +575,7 @@ window.Quarto = {
   border-bottom-color: #24272E;
 }
 
-#htlgmudlkg .gt_footnotes {
+#jzpanbzndf .gt_footnotes {
   color: #FFFFFF;
   background-color: #0C0D10;
   border-bottom-style: none;
@@ -589,7 +589,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#htlgmudlkg .gt_footnote {
+#jzpanbzndf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -598,7 +598,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#htlgmudlkg .gt_sourcenotes {
+#jzpanbzndf .gt_sourcenotes {
   color: #FFFFFF;
   background-color: #0C0D10;
   border-bottom-style: none;
@@ -612,7 +612,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#htlgmudlkg .gt_sourcenote {
+#jzpanbzndf .gt_sourcenote {
   font-size: 90%;
   padding-top: 6px;
   padding-bottom: 6px;
@@ -620,92 +620,92 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#htlgmudlkg .gt_left {
+#jzpanbzndf .gt_left {
   text-align: left;
 }
 
-#htlgmudlkg .gt_center {
+#jzpanbzndf .gt_center {
   text-align: center;
 }
 
-#htlgmudlkg .gt_right {
+#jzpanbzndf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#htlgmudlkg .gt_font_normal {
+#jzpanbzndf .gt_font_normal {
   font-weight: normal;
 }
 
-#htlgmudlkg .gt_font_bold {
+#jzpanbzndf .gt_font_bold {
   font-weight: bold;
 }
 
-#htlgmudlkg .gt_font_italic {
+#jzpanbzndf .gt_font_italic {
   font-style: italic;
 }
 
-#htlgmudlkg .gt_super {
+#jzpanbzndf .gt_super {
   font-size: 65%;
 }
 
-#htlgmudlkg .gt_footnote_marks {
+#jzpanbzndf .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#htlgmudlkg .gt_asterisk {
+#jzpanbzndf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#htlgmudlkg .gt_indent_1 {
+#jzpanbzndf .gt_indent_1 {
   text-indent: 5px;
 }
 
-#htlgmudlkg .gt_indent_2 {
+#jzpanbzndf .gt_indent_2 {
   text-indent: 10px;
 }
 
-#htlgmudlkg .gt_indent_3 {
+#jzpanbzndf .gt_indent_3 {
   text-indent: 15px;
 }
 
-#htlgmudlkg .gt_indent_4 {
+#jzpanbzndf .gt_indent_4 {
   text-indent: 20px;
 }
 
-#htlgmudlkg .gt_indent_5 {
+#jzpanbzndf .gt_indent_5 {
   text-indent: 25px;
 }
 
-#htlgmudlkg .katex-display {
+#jzpanbzndf .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#htlgmudlkg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#jzpanbzndf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 
-#htlgmudlkg td {
+#jzpanbzndf td {
   font-variant-numeric: tabular-nums;
 }
 
-#htlgmudlkg tbody tr:last-child {
+#jzpanbzndf tbody tr:last-child {
   border-bottom: 2px solid #0C0D10;
 }
 
-#htlgmudlkg td, #htlgmudlkg th {
+#jzpanbzndf td, #jzpanbzndf th {
   line-height: 1.55;
 }
 
-#htlgmudlkg .gt_subtitle {
+#jzpanbzndf .gt_subtitle {
   padding-bottom: 14px !important;
 }
 
-#htlgmudlkg .gt_title {
+#jzpanbzndf .gt_title {
   padding-bottom: 3px !important;
 }
 </style>
