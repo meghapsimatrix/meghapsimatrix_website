@@ -13,9 +13,11 @@ author:
 date: 2026-03-20
 image: featured.png
 links:
-- icon: github
-  url: https://jepusto.github.io/metaselection/index.html
 - text: Website
+  url: https://jepusto.github.io/metaselection/index.html
+- text: CRAN
+  url: https://cran.r-project.org/package=metaselection
+- icon: github
   url: https://jepusto.github.io/metaselection/index.html
 ---
 

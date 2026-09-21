@@ -10,10 +10,10 @@ author:
 date: 2024-07-25
 image: workflow.png
 links:
-- text: CRAN
-  url: https://cran.r-project.org/package=simhelpers
 - text: Website
   url: https://meghapsimatrix.github.io/simhelpers/
+- text: CRAN
+  url: https://cran.r-project.org/package=simhelpers
 - icon: github
   url: https://github.com/meghapsimatrix/simhelpers/
 citation:
