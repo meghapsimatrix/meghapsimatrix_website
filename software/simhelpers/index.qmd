@@ -8,7 +8,7 @@ author:
     given: James E. 
     family: Pustejovsky
 date: 2024-07-25
-image: workflow.png
+image: simhelpers.png
 links:
 - text: Website
   url: https://meghapsimatrix.github.io/simhelpers/
